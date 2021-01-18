@@ -1,0 +1,115 @@
+body {
+  display: block;
+  position: fixed;
+  margin: 0px;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #15202B;
+
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.chat-grid-item {
+    border-left: 1px solid #8899A6;
+    border-right: 1px solid #8899A6;
+    min-height: 100vh;
+}
+
+.chat-grid-container {
+  height: 100%;
+  width: min-content;
+  overflow-y: scroll;
+  position: relative;
+  top: 0;
+  bottom: 0;
+}
+
+.messages {
+  display: flex;
+  flex-direction: column-reverse;
+  width: var(--msg-width, 100%) !important;
+  flex-wrap: nowrap !important;
+  overflow-y: scroll !important;
+  position: fixed;
+  bottom: 100px;
+  top: 130px;
+}
+
+
+.messageContainer {
+  border-radius: 5px;
+  width: 100%;
+  position: sticky;
+  bottom: 0;
+}
+
+.message-area-item {
+  width: 100%;
+}
+
+.textarea {
+  width: 100% !important;
+  border-top: 2px solid white !important;
+}
+
+.divider {
+  background-color: white !important;
+}
+
+.list-flex-start {
+  margin-left: 150px !important;
+}
+
+.MuiToggleButton-root {
+  border: 1px solid #8899A6 !important;
+}
+
+.MuiToggleButton-root:hover {
+  background-color:  rgba(136, 153, 166, 0.3)!important;
+}
+
+.MuiInputBase-root {
+  color: white !important
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+  
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background: #8899A6;
+  height: 10px;
+  overflow: hidden;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #8899A6;
+}
+
+.avatar {
+  margin: auto;
+  margin-right: 10px;
+  cursor: pointer;
+}
