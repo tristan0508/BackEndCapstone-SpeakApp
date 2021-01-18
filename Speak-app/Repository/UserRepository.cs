@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SpeakApp.Repository
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
         private readonly ApplicationDbContext _context;
 
