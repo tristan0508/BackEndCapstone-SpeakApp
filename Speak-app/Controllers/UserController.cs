@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Speak_app.Data;
+using SpeakApp.Data;
 using SpeakApp.Models;
 using SpeakApp.Repository;
 using System;
@@ -10,9 +10,9 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace Speak_app.Controllers
+namespace SpeakApp.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase

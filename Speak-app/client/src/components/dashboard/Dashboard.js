@@ -3,6 +3,7 @@ import {Grid} from '@material-ui/core';
 import MessageArea from '../messagearea/MessageArea';
 import MessageHeader from '../messagearea/MessageHeader';
 import MessageLayout from '../messagearea/MessageLayout';
+import agent from '../../api/agent'
 
 
 const Dashboard = () => {
@@ -18,6 +19,7 @@ const Dashboard = () => {
 
     useEffect(() => {
         scrollToEnd()
+        agent.Messages.list(1).then(res => console.log(res.type))
     }, [])
 
     

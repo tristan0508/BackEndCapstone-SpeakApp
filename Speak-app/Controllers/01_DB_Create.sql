@@ -5,17 +5,16 @@ IF db_id('SpeakApp') IS NULL
 	CREATE DATABASE SpeakApp
 GO
 
-
 USE [SpeakApp]
 GO
 
 
 CREATE TABLE [User] (
-  [Id] integer PRIMARY KEY NOT NULL IDENTITY,
-  [FireBaseUserId] nvarchar(255) NOT NULL,
+  [Id] integer IDENTITY(1, 1) PRIMARY KEY NOT NULL,
+  [FireBaseUserId] nvarchar(255) UNIQUE NOT NULL,
   [FirstName] nvarchar(255) NOT NULL,
   [LastName] nvarchar(255) NOT NULL,
-  [Email] nvarchar(255) NOT NULL,
+  [Email] nvarchar(255) UNIQUE NOT NULL,
   [DisplayName] nvarchar(255) NOT NULL,
   [Image] nvarchar(255) NULL,
   [Status] bit NOT NULL DEFAULT (0),
@@ -23,7 +22,7 @@ CREATE TABLE [User] (
 GO
 
 CREATE TABLE [Message] (
-  [Id] integer PRIMARY KEY NOT NULL IDENTITY,
+  [Id] integer IDENTITY(1, 1) PRIMARY KEY NOT NULL,
   [Body] text NOT NULL,
   [ChatId] integer NOT NULL,
   [UserId] integer NOT NULL,
@@ -34,14 +33,14 @@ CREATE TABLE [Message] (
 GO
 
 CREATE TABLE [Chat] (
-  [Id] integer PRIMARY KEY NOT NULL IDENTITY,
+  [Id] integer IDENTITY(1, 1) PRIMARY KEY NOT NULL,
   [Name] nvarchar(255) NOT NULL,
   [Type] nvarchar(255) NOT NULL
 )
 GO
 
 CREATE TABLE [UserChat] (
-  [Id] integer PRIMARY KEY NOT NULL IDENTITY,
+  [Id] integer IDENTITY(1, 1) PRIMARY KEY NOT NULL,
   [UserId] integer NOT NULL,
   [ChatId] integer NOT NULL
 )

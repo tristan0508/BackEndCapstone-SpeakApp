@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SpeakApp.Models;
 
-namespace Speak_app.Data
+namespace SpeakApp.Data
 {
     public class ApplicationDbContext : DbContext
     {

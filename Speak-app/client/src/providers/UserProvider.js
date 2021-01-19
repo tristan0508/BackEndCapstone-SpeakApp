@@ -25,7 +25,7 @@ export function UserProvider(props) {
             setIsLoggedIn(true);
         });
     };
-
+    
     const logout = () => {
         return firebase.auth().signOut()
         .then(() => {
@@ -33,6 +33,7 @@ export function UserProvider(props) {
             setIsLoggedIn(false);
         });
     };
+
 
     const register = (user, password) => {
         return firebase.auth().createUserWithEmailAndPassword(user.email, password)
@@ -54,6 +55,7 @@ export function UserProvider(props) {
                 }
             }).then(resp => resp.json()));
     };
+
 
     const saveUser = (user) => {
         return getToken().then((token) =>

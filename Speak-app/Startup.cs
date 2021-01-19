@@ -11,14 +11,15 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
-using Speak_app.Data;
+using Speak_app.Repository;
+using SpeakApp.Data;
 using SpeakApp.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Speak_app
+namespace SpeakApp
 {
     public class Startup
     {
@@ -34,9 +35,18 @@ namespace Speak_app
         {
 
             services.AddTransient<IUserRepository, UserRepository>();
+            services.AddTransient<IChatRepository, ChatRepository>();
+            services.AddTransient<IMessageRepository, MessageRepository>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddCors(opt => {
+                opt.AddPolicy("CorsPolicy", policy =>
+                {
+                    policy.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000");
+                });
+            });
 
             services.AddControllers().AddNewtonsoftJson(options =>
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
@@ -76,7 +86,7 @@ namespace Speak_app
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Speak_app v1"));
             }
 
-            app.UseHttpsRedirection();
+            app.UseCors("CorsPolicy");
 
             app.UseRouting();
 
