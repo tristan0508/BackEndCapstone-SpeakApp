@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { loginTheme } from '../customtheme/MaterialTheme'
+import { history } from '../index'
 
 const Copyright = () => {
   return (
@@ -61,9 +62,11 @@ const LoginPage = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const { setIsLoggedIn, login } = useContext(UserContext);
+  
 
   const handleLogin = () => {
     login(email, password) ? setIsLoggedIn(true) : setIsLoggedIn(false)
+    history.push("/dashboard")
   }
 
   return (
@@ -138,6 +141,8 @@ const LoginPage = () => {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
+                as={Link}
+                to="/dashboard"
             >
                 Sign In
             </Button>

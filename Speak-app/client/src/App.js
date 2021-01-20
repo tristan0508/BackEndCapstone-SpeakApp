@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Dashboard from './components/dashboard/Dashboard';
-import Header from './components/header/Header';
+import ApplicationsViews from './components/ApplicationViews';
 import { UserProvider } from './providers/UserProvider';
 
 function App() {
@@ -9,8 +8,7 @@ function App() {
     <Fragment>
         <UserProvider>
           <Router>
-          <Header />
-          <Dashboard />
+          <ApplicationsViews />
         </Router>
         </UserProvider>
     </Fragment>

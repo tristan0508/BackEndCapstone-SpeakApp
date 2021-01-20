@@ -4,6 +4,10 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import firebase from "firebase/app";
+import { createBrowserHistory } from 'history';
+import { Router } from 'react-router-dom';
+
+export const history = createBrowserHistory();
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
@@ -12,7 +16,9 @@ firebase.initializeApp(firebaseConfig);
 
 ReactDOM.render(
   <React.StrictMode>
+    <Router history={history}>
     <App />
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

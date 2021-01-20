@@ -2,6 +2,7 @@ import React, { useState, useEffect, createContext } from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
 import LoginPage from "../components/LoginPage";
+import { history } from "../index"
 
 export const UserContext = createContext();
 
@@ -33,6 +34,7 @@ export function UserProvider(props) {
         .then(() => {
             localStorage.clear()
             setIsLoggedIn(false);
+            history.push("/")
             window.onresize = null;
         });
     };
@@ -74,7 +76,7 @@ export function UserProvider(props) {
 
     return (
         <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn, login, logout, register, getToken }}>
-        {isFirebaseReady && isLoggedIn
+        {isLoggedIn
             ? props.children
             : <LoginPage />}
         </UserContext.Provider>
