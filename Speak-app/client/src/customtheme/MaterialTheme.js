@@ -45,6 +45,14 @@ export let blueTheme = createMuiTheme({
     }
 })
 
+export let loginTheme = createMuiTheme({
+    palette: {
+        primary: {
+            main: '#1dcaff'
+        }
+    }
+})
+
 
 headerTheme = responsiveFontSizes(headerTheme);
 buttonTheme = responsiveFontSizes(buttonTheme);

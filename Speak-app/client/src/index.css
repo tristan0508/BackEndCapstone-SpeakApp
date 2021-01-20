@@ -12,13 +12,26 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #15202B;
+  background-color: #15202B !important;
 
 }
 
+#root {
+  background-color: #15202B;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.loginTextField {
+  
+  color: white !important;
+}
+
+.MuiInputBase-input {
+  color: white !important;
+  -webkit-tap-highlight-color: white !important;
 }
 
 .chat-grid-item {

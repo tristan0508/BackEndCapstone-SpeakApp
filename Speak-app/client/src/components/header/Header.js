@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Typography, Button, IconButton } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
 import { headerTheme } from '../../customtheme/MaterialTheme';
 import image from '../../images/messageicon.png'
 import AvatarStatus from '../customcomponents/AvartarStatus';
+import { UserContext } from '../../providers/UserProvider';
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -25,6 +26,7 @@ const useStyles = makeStyles((theme) =>
 
 const Header = () => {
     const classes = useStyles();
+    const { logout } = useContext(UserContext);
 
     return (
         <div className={classes.root}>
@@ -38,7 +40,7 @@ const Header = () => {
                             <img src={image} alt="avatar" className={classes.img} />
                         </Typography>
                         <AvatarStatus />
-                        <Button color="inherit">Login</Button>
+                        <Button onClick={logout} color="inherit">Logout</Button>
                     </Toolbar>
                 </AppBar>
             </ThemeProvider>

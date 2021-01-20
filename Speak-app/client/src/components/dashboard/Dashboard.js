@@ -19,7 +19,6 @@ const Dashboard = () => {
 
     useEffect(() => {
         scrollToEnd()
-        agent.Messages.list(1).then(res => console.log(res.type))
     }, [])
 
     

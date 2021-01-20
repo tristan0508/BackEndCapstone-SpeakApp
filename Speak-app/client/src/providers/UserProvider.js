@@ -1,6 +1,7 @@
 import React, { useState, useEffect, createContext } from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
+import LoginPage from "../components/LoginPage";
 
 export const UserContext = createContext();
 
@@ -11,6 +12,7 @@ export function UserProvider(props) {
     const [isLoggedIn, setIsLoggedIn] = useState(user != null);
 
     const [isFirebaseReady, setIsFirebaseReady] = useState(false);
+
     useEffect(() => {
         firebase.auth().onAuthStateChanged((u) => {
             setIsFirebaseReady(true);
@@ -31,6 +33,7 @@ export function UserProvider(props) {
         .then(() => {
             localStorage.clear()
             setIsLoggedIn(false);
+            window.onresize = null;
         });
     };
 
@@ -70,10 +73,10 @@ export function UserProvider(props) {
     };
 
     return (
-        <UserContext.Provider value={{ isLoggedIn, login, logout, register, getToken }}>
-        {/* {isFirebaseReady
+        <UserContext.Provider value={{ isLoggedIn, setIsLoggedIn, login, logout, register, getToken }}>
+        {isFirebaseReady && isLoggedIn
             ? props.children
-            : <Spinner className="app-spinner dark"/>} */}
+            : <LoginPage />}
         </UserContext.Provider>
     );
 }
