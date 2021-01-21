@@ -17,13 +17,8 @@ namespace Speak_app.Repository
 
         public List<Message> GetMessagesByUserId(int userId)
         {
-            var messages = _context.Message.Where(msg => msg.UserId == userId);
-            var listOfMessages = new List<Message>();
-            foreach(var msg in messages)
-            {
-                listOfMessages.Add(msg);
-            }
-            return listOfMessages;
+            var messages = _context.Message.Where(msg => msg.UserId == userId).ToList();
+            return messages;
         }
     }
 }
