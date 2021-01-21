@@ -61,12 +61,18 @@ const LoginPage = () => {
   const classes = useStyles();
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const { setIsLoggedIn, login } = useContext(UserContext);
+  const { setIsLoggedIn, login, setIsRegister } = useContext(UserContext);
   
 
   const handleLogin = () => {
-    login(email, password) ? setIsLoggedIn(true) : setIsLoggedIn(false)
-    history.push("/dashboard")
+    login(email, password)
+      .then(() => history.push("/dashboard"))
+      .catch(() => alert("Invalid email or password"))
+  }
+
+  const handleRegisterPush = () => {
+    setIsRegister(true)
+    history.push("/register")
   }
 
   return (
@@ -141,8 +147,6 @@ const LoginPage = () => {
                 variant="contained"
                 color="primary"
                 className={classes.submit}
-                as={Link}
-                to="/dashboard"
             >
                 Sign In
             </Button>
@@ -153,7 +157,7 @@ const LoginPage = () => {
                 </Link>
                 </Grid>
                 <Grid item>
-                <Link href="#" variant="body2">
+                <Link style={{ cursor: 'pointer'}} variant="body2" onClick={handleRegisterPush}>
                     {"Don't have an account? Sign Up"}
                 </Link>
                 </Grid>
