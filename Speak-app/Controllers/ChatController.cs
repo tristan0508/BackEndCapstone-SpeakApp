@@ -37,5 +37,12 @@ namespace Speak_app.Controllers
             var chat = _chatRepository.GetChatByName(name);
             return Ok(chat);
         }
+
+        [HttpPost("{chatId}")]
+        public IActionResult  DeleteChat(int chatId)
+        {
+            _chatRepository.removeChat(chatId);
+            return Ok();
+        }
     }
 }

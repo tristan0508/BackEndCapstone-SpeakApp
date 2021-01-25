@@ -61,7 +61,7 @@ const LoginPage = () => {
   const classes = useStyles();
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
-  const { setIsLoggedIn, login, setIsRegister } = useContext(UserContext);
+  const { login, setIsRegister } = useContext(UserContext);
   
 
   const handleLogin = () => {

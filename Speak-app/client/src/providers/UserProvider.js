@@ -1,9 +1,8 @@
 import React, { useState, useEffect, createContext } from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
-import LoginPage from "../components/LoginPage";
 import { history } from "../index"
-import RegisterPage from "../components/RegisterPage"
+
 
 export const UserContext = createContext();
 
@@ -11,9 +10,10 @@ export function UserProvider(props) {
     const apiUrl = "/api/user";
 
     const user = localStorage.getItem("user");
+    const userToken = localStorage.getItem("token");
     const [isLoggedIn, setIsLoggedIn] = useState(user != null);
-    const [isRegister, setIsRegister] = useState(false)
     const [isFirebaseReady, setIsFirebaseReady] = useState(false);
+    const [token, setToken] = useState(userToken ? userToken : "");
 
     useEffect(() => {
         firebase.auth().onAuthStateChanged((u) => {
@@ -50,7 +50,11 @@ export function UserProvider(props) {
             });
     };
 
-    const getToken = () => firebase.auth().currentUser.getIdToken();
+    const getToken = () => firebase.auth().currentUser.getIdToken()
+        .then(res => {
+            localStorage.setItem("token", res)
+            setToken(res)
+        })
 
     const getUser = (firebaseUserId) => {
         return getToken().then((token) =>
@@ -76,7 +80,7 @@ export function UserProvider(props) {
     };
 
     return (
-        <UserContext.Provider value={{ isLoggedIn, isFirebaseReady, setIsLoggedIn, login, logout, register, getToken, setIsRegister }}>
+        <UserContext.Provider value={{ isLoggedIn, isFirebaseReady, token, setIsLoggedIn, login, logout, register, getToken }}>
         {props.children}
         </UserContext.Provider>
     );

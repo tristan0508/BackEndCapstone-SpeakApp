@@ -20,5 +20,30 @@ namespace Speak_app.Repository
             var messages = _context.Message.Where(msg => msg.UserId == userId).ToList();
             return messages;
         }
+
+        public Message AddMessage(Message message)
+        {
+            _context.Add(message);
+            _context.SaveChanges();
+
+            Message msg = message;
+
+            return msg;
+        }
+
+        public void RemoveMessage(int msgId)
+        {
+            Message message = _context.Message.FirstOrDefault(msg => msg.Id == msgId);
+            _context.Remove(message);
+            _context.SaveChanges();
+        }
+
+        public List<Message> ChatMessages(int chatId)
+        {
+            var messages = _context.Message.Where(msg => msg.ChatId == chatId).ToList();
+            return messages;
+        }
+
+
     }
 }

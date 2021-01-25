@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using Speak_app.Hubs;
 using Speak_app.Repository;
 using SpeakApp.Data;
 using SpeakApp.Models;
@@ -24,6 +26,7 @@ namespace Speak_app.Controllers
 
         private readonly UserRepository _userRepository;
         private readonly MessageRepository _messageRepository;
+      
         public MessageController(ApplicationDbContext context)
         {
             _messageRepository = new MessageRepository(context);
@@ -33,8 +36,22 @@ namespace Speak_app.Controllers
         [HttpGet("{userId}")]
         public IActionResult GetMessagesByUserId(int userId)
         {
+            var user = GetCurrentUserProfile();
             var messages = _messageRepository.GetMessagesByUserId(userId);
-            return Ok(messages);
+            return Ok(user.Id);
         }
+
+        [HttpPost("{msgId}")]
+        public IActionResult DeleteMessage(int msgId)
+        {
+            _messageRepository.RemoveMessage(msgId);
+            return Ok();
+        }
+
+        //[HttpPost]
+        //public async Task Add(Message message)
+        //{
+            
+        //}
     }
 }

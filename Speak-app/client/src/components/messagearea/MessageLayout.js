@@ -6,7 +6,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import avatar from '../../images/headshot.jpg';
+// import avatar from '../../images/headshot.jpg';
 
 
 const useStyles = makeStyles(() =>
@@ -25,14 +25,14 @@ const useStyles = makeStyles(() =>
 
 let name = `Tristan Wyatt - Date: 01/11/2021`
 
-const MessageLayout = () => {
+const MessageLayout = ({ text }) => {
     const classes = useStyles();
 
     return (
         <List id='layout' className={classes.root}>
             <ListItem alignItems="flex-start">
                 <ListItemAvatar>
-                    <Avatar alt="Remy Sharp" src={avatar} />
+                    <Avatar alt="Remy Sharp"  />
                 </ListItemAvatar>
                 <ListItemText
                     primary={name}
@@ -43,7 +43,7 @@ const MessageLayout = () => {
                                 variant="body2"
                                 className={classes.inline}
                             >
-                                Hello? how are you doing?
+                                {text.body}
               </Typography>
                         </React.Fragment>
                     }

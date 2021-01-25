@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
+import { ChatContext } from '../../providers/ChatProvider'
+
 import {
     makeStyles,
     TextField,
@@ -21,9 +23,14 @@ const useStyles = makeStyles(() =>
     }),
 );
 
-
 const MessageArea = () => {
     const classes = useStyles();
+    const [input, setInput] = useState("")
+    const { addMessage } = useContext(ChatContext);
+  
+
+
+ 
 
     return (
         <ThemeProvider theme={headerTheme}>
@@ -32,9 +39,21 @@ const MessageArea = () => {
                 <TextField
                     className="textarea"
                     multiline variant="outlined"
-                    id="outline-multiline-flexible"
+                    id="outline-flexible"
                     aria-label="empty textarea"
                     placeholder="Message"
+                    onChange={(e) => {
+                        if (e.nativeEvent.inputType !== 'insertLineBreak'){
+                            setInput(e.currentTarget.value)
+                        }
+                    }}
+                    onKeyUp={(e) => {
+                        if (e.key === 'Enter' && input.length !== 1){
+                            addMessage(input, 4)
+                            setInput("")
+                        }
+                    }}
+                    value={input}
                 />
                 <Toolbar style={{
                     backgroundColor: '#1dcaff'
