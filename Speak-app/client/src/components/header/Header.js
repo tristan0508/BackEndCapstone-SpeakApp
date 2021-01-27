@@ -31,7 +31,7 @@ const Header = () => {
     return (
         <div className={classes.root}>
             <ThemeProvider theme={headerTheme}>
-                <AppBar position="static" color='primary'>
+                <AppBar position="static" color='primary' style={{borderBottom: '1px solid white'}}>
                     <Toolbar>
                         <IconButton edge="start" className={classes.menuButton} color='inherit' aria-label="menu">
                             <Menu />

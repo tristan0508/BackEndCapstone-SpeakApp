@@ -66,13 +66,18 @@ export const ChatProvider = (props) => {
         }
     }
 
+    const GetName = async () => {
+        await hubConnection.invoke("GetUserId")
+        .then(res => console.log(res))
+    }
+
 
 
 
 
 
     return (
-       <ChatContext.Provider value={{ HubConnection, hubConnection, addMessage, AddChannel, chat}}>
+       <ChatContext.Provider value={{ HubConnection, GetName, hubConnection, addMessage, AddChannel, chat}}>
            {props.children}
        </ChatContext.Provider>
     )

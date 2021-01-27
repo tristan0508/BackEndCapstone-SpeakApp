@@ -7,21 +7,41 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
+using Speak_app.Repository;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Speak_app.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class ChatController : ControllerBase
     {
+        private User GetCurrentUserProfile()
+        {
+            string firebaseUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            return _userRepository.GetByFirebaseUserId(firebaseUserId);
+
+        }
+
+        private readonly UserRepository _userRepository;
         private readonly ChatRepository _chatRepository;
 
 
         public ChatController(ApplicationDbContext context)
         {
             _chatRepository = new ChatRepository(context);
+            _userRepository = new UserRepository(context);
 
+        }
+
+        [HttpGet]
+        public IActionResult GetUserChats(int userId)
+        {
+            var user = GetCurrentUserProfile();
+            userId = user.Id;
+            var chats = _chatRepository.GetUserChats(userId);
+            return Ok(chats);
         }
 
         [HttpGet("{chatId}")]

@@ -86,7 +86,7 @@ const MessageHeader = ({ openMenu, setOpenMenu }) => {
 
     return (
         <ThemeProvider theme={headerTheme}>
-            <AppBar position="relative" style={{ backgroundColor: '#1dcaff' }}>
+            <AppBar position="relative" style={{ backgroundColor: '#1dcaff', border: '1px solid white' }}>
                 <Toolbar>
                     <IconButton color="inherit" title="Pin">
                         <AssistantOutlinedIcon />

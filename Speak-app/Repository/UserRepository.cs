@@ -27,5 +27,7 @@ namespace SpeakApp.Repository
             _context.Add(user);
             _context.SaveChanges();
         }
+
+
     }
 }

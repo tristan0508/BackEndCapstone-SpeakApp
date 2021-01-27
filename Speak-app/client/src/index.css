@@ -25,7 +25,6 @@ code {
 }
 
 .loginTextField {
-  
   color: white !important;
 }
 
@@ -125,4 +124,8 @@ code {
   margin: auto;
   margin-right: 10px;
   cursor: pointer;
+}
+
+.chatListText {
+  padding-left: 5px !important;
 }

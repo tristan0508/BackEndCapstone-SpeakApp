@@ -38,6 +38,7 @@ namespace SpeakApp
             services.AddTransient<IUserRepository, UserRepository>();
             services.AddTransient<IChatRepository, ChatRepository>();
             services.AddTransient<IMessageRepository, MessageRepository>();
+            services.AddTransient<IUserChatRepository, UserChatRepository>();
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));

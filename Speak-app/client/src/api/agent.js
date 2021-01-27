@@ -14,7 +14,7 @@ const requests = {
 };
 
 const Messages = {
-    list: (userId) => requests.get(`/Chat/${userId}`)
+    list: (userId) => requests.get(`/messages/${userId}`)
 }
 
 const User = {
@@ -25,7 +25,16 @@ const User = {
     })
 }
 
+const UserChat = {
+    userChat: (token) => requests.get('/chat/', {
+         headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+        }
+    })
+}
 export default {
     Messages,
-    User
+    User,
+    UserChat
 }

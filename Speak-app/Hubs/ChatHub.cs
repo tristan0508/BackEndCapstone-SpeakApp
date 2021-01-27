@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
 using Speak_app.Repository;
 using SpeakApp.Data;
 using SpeakApp.Models;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace Speak_app.Hubs
 {
+    [Authorize]
     public class ChatHub : Hub 
     {
 
@@ -88,6 +90,19 @@ namespace Speak_app.Hubs
             var username = GetUser();
 
             await Clients.Group(groupName).SendAsync("Send", $"{username.DisplayName} has left the group");
+        }
+
+        public void SendChatMessage(string who, string message)
+        {
+            string name = Context.User.Identity.Name;
+
+            Clients.Group(who).SendAsync("AddChatMessage", message, name);
+        }
+
+        public string GetName()
+        {
+            string name = Context.User.Identity.Name;
+            return name;
         }
     }
 }

@@ -11,6 +11,7 @@ export function UserProvider(props) {
 
     const user = localStorage.getItem("user");
     const userToken = localStorage.getItem("token");
+    const [isRegister, setIsRegister] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(user != null);
     const [isFirebaseReady, setIsFirebaseReady] = useState(false);
     const [token, setToken] = useState(userToken ? userToken : "");
@@ -25,6 +26,7 @@ export function UserProvider(props) {
         return firebase.auth().signInWithEmailAndPassword(email, pw)
         .then((signInResponse) => getUser(signInResponse.user.uid))
         .then((user) => {
+            console.log(user.id)
             localStorage.setItem("user", JSON.stringify(user));
             setIsLoggedIn(true);
         });
@@ -80,7 +82,7 @@ export function UserProvider(props) {
     };
 
     return (
-        <UserContext.Provider value={{ isLoggedIn, isFirebaseReady, token, setIsLoggedIn, login, logout, register, getToken }}>
+        <UserContext.Provider value={{ isLoggedIn, isFirebaseReady, token, setIsLoggedIn, login, logout, register, getToken, setIsRegister }}>
         {props.children}
         </UserContext.Provider>
     );

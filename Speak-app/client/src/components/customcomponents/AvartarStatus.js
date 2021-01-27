@@ -1,7 +1,7 @@
 import Badge from '@material-ui/core/Badge';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles, withStyles, createStyles } from '@material-ui/core/styles';
-import avatar from '../../images/headshot.jpg';
+import avatar from '../../images/Sam.png';
 
 const StyledBadge = withStyles((theme) =>
     createStyles({
@@ -24,12 +24,12 @@ const StyledBadge = withStyles((theme) =>
     }),
 )(Badge);
 
-const useStyles = makeStyles((theme) =>
+const useStyles = makeStyles(() =>
     createStyles({
         root: {
             display: 'flex',
             '& > *': {
-                margin: theme.spacing(1),
+                marginLeft: '-8px' ,
             },
         },
     }),
@@ -42,6 +42,7 @@ const AvatarStatus = () => {
     return (
         <div className={classes.root}>
             <StyledBadge
+
                 overlap="circle"
                 anchorOrigin={{
                     vertical: 'bottom',

@@ -56,7 +56,8 @@ const MessageArea = () => {
                     value={input}
                 />
                 <Toolbar style={{
-                    backgroundColor: '#1dcaff'
+                    backgroundColor: '#1dcaff',
+                    borderTop: '1px solid white'
                 }}>
                     < div className={classes.grow} />
                     <IconButton edge="start" color="inherit" aria-label="open drawer">

@@ -4,13 +4,14 @@ import MessageArea from '../messagearea/MessageArea';
 import MessageHeader from '../messagearea/MessageHeader';
 import MessageLayout from '../messagearea/MessageLayout';
 import { ChatContext } from '../../providers/ChatProvider';
+import ChatSideBar from '../chatsidebar/ChatSideBar';
 // import { UserContext } from '../../providers/UserProvider'
 
 
 
 const Dashboard = () => {
     const [openMenu, setOpenMenu] = useState(false)
-    const { chat, AddChannel, HubConnection } = useContext(ChatContext);
+    const { chat, AddChannel, HubConnection, GetName } = useContext(ChatContext);
     const [chatName, setChatName] = useState("")
    
     const scrollToEnd = () => {
@@ -28,8 +29,11 @@ const Dashboard = () => {
 
     return (
         <Grid container >
-            <Grid container item xs={4} >
-                <div className={'grid'}></div>
+            <Grid container item xs={1} >
+                
+            </Grid>
+            <Grid container item xs={3} justify="flex-end">
+                <ChatSideBar />
             </Grid>
 
             <Grid id="chat-container" className="chat-grid-item" container item xs={openMenu ? 6 : 8}>
@@ -37,9 +41,9 @@ const Dashboard = () => {
 
                 <Grid id="chat-grid-container" container item className="chat-grid-container" alignItems="flex-start" >
                     <Grid id="chat" className="messages" container item xs={8}>
-                        {chat.map(msg => {
-                            return <MessageLayout key={msg.id} text={msg} />
-                        })}
+                        
+                          <MessageLayout  />
+                       
                     </Grid>
                 </Grid>
 
@@ -66,6 +70,11 @@ const Dashboard = () => {
                    AddChannel(chatName)
                }}>
                    Submit Chat
+                </button>
+                <button onClick={() => {
+                    GetName()
+                }}>
+                    Getname
                 </button>
                </Container>
             </Grid>

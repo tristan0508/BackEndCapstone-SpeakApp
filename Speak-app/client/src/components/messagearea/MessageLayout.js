@@ -6,7 +6,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-// import avatar from '../../images/headshot.jpg';
+import avatar from '../../images/headshot.jpg';
 
 
 const useStyles = makeStyles(() =>
@@ -32,7 +32,7 @@ const MessageLayout = ({ text }) => {
         <List id='layout' className={classes.root}>
             <ListItem alignItems="flex-start">
                 <ListItemAvatar>
-                    <Avatar alt="Remy Sharp"  />
+                    <Avatar alt="Remy Sharp" src={avatar} />
                 </ListItemAvatar>
                 <ListItemText
                     primary={name}
@@ -43,7 +43,7 @@ const MessageLayout = ({ text }) => {
                                 variant="body2"
                                 className={classes.inline}
                             >
-                                {text.body}
+                                Welcome to Speak App!
               </Typography>
                         </React.Fragment>
                     }
