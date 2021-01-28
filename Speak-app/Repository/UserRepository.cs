@@ -28,6 +28,11 @@ namespace SpeakApp.Repository
             _context.SaveChanges();
         }
 
+        public List<User> AllUsers()
+        {
+            var users = _context.User.Select(user => user).ToList();
+            return users;
+        }
 
     }
 }

@@ -1,11 +1,12 @@
 import React, { useContext } from 'react';
 import { createStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Typography, Button, IconButton } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, Button, IconButton, Avatar } from '@material-ui/core';
 import { Menu } from '@material-ui/icons';
 import { headerTheme } from '../../customtheme/MaterialTheme';
-import image from '../../images/messageicon.png'
-import AvatarStatus from '../customcomponents/AvartarStatus';
+import imageIcon from '../../images/messageicon.png'
 import { UserContext } from '../../providers/UserProvider';
+import { StyledBadge } from '../customcomponents/AvartarStatus';
+import { ChatContext } from '../../providers/ChatProvider';
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -20,12 +21,27 @@ const useStyles = makeStyles((theme) =>
         },
         img: {
             height: 50
-        }
+        },
+        
     }),
 );
 
+const useStylesBadge = makeStyles(() =>
+    createStyles({
+        root: {
+            display: 'flex',
+            '& > *': {
+                marginLeft: '-8px' ,
+            },
+        },
+    }),
+);
+
+
 const Header = () => {
     const classes = useStyles();
+    const image = localStorage.getItem("userImage");
+    const classesBadge = useStylesBadge();
     const { logout } = useContext(UserContext);
 
     return (
@@ -37,9 +53,21 @@ const Header = () => {
                             <Menu />
                         </IconButton>
                         <Typography className={classes.title}>
-                            <img src={image} alt="avatar" className={classes.img} />
+                            <img src={imageIcon} alt="avatar" className={classes.img} />
                         </Typography>
-                        <AvatarStatus />
+                            <div className={classesBadge.root}>
+                                <StyledBadge
+
+                                    overlap="circle"
+                                    anchorOrigin={{
+                                        vertical: 'bottom',
+                                        horizontal: 'right',
+                                    }}
+                                    variant={'dot'}
+                                >
+                                    <Avatar key={1} alt="avatar" src={image ? image : ""} />
+                                </StyledBadge>
+                            </div>
                         <Button onClick={logout} color="inherit">Logout</Button>
                     </Toolbar>
                 </AppBar>

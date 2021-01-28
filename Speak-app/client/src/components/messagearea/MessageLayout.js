@@ -25,29 +25,30 @@ const useStyles = makeStyles(() =>
 
 let name = `Tristan Wyatt - Date: 01/11/2021`
 
-const MessageLayout = ({ text }) => {
+const MessageLayout = () => {
     const classes = useStyles();
 
     return (
         <List id='layout' className={classes.root}>
+
             <ListItem alignItems="flex-start">
                 <ListItemAvatar>
                     <Avatar alt="Remy Sharp" src={avatar} />
                 </ListItemAvatar>
-                <ListItemText
-                    primary={name}
-                    secondary={
-                        <React.Fragment>
-                            <Typography
-                                component="span"
-                                variant="body2"
-                                className={classes.inline}
-                            >
-                                Welcome to Speak App!
-              </Typography>
-                        </React.Fragment>
-                    }
-                />
+                        <ListItemText
+                            primary={name}
+                            secondary={
+                                <React.Fragment>
+                                    <Typography
+                                        component="span"
+                                        variant="body2"
+                                        className={classes.inline}
+                                    >
+                                        Welcome to Speak App!
+                                    </Typography>
+                                </React.Fragment>
+                            }
+                        />
             </ListItem>
 
         </List>

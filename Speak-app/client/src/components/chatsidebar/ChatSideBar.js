@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
+import { ChatContext } from '../../providers/ChatProvider';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -6,41 +7,35 @@ import { Button, Container, ThemeProvider } from '@material-ui/core';
 import { headerTheme } from '../../customtheme/MaterialTheme';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
-import agent from '../../api/agent';
 import AvatarStatus from '../customcomponents/AvartarStatus';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     width: '100%',
+    height: '100%',
     maxWidth: 360,
     backgroundColor: '#192734',
     color: 'white',
     border: '1px solid white',
-
     overflow: 'scroll',
-
   },
 }));
 
 const ChatSideBar = () => {
     const classes = useStyles();
-    const [chat, setChat] = useState([]);
+    const { GetUserChat, chat, openModal, setOpenModal } = useContext(ChatContext)
 
-    useEffect(() => {
-            let token = localStorage.getItem("token")
-            fetch('http://localhost:5000/api/chat/', {
-                method: "GET",
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                    "Content-Type": "application/json"
-                }
-            }).then(res => res.json())
-            .then(res => setChat(res))
+    const handleModal = () => {
+      if(openModal === false){
+        setOpenModal(true)
+      } else {
+        setOpenModal(false)
+      }
+    }
+
    
-        }, [])
-    
 
     return (
         <div className={classes.root}>
@@ -68,7 +63,8 @@ const ChatSideBar = () => {
           <List component="nav" aria-label="secondary mailbox folders">
             <Container>
                 <h4>Direct Messages</h4>
-                <Button variant="outlined" color="secondary">
+               
+                <Button variant="outlined" color="secondary" onClick={handleModal}>
                 New Direct Message
                 </Button>
             </Container>

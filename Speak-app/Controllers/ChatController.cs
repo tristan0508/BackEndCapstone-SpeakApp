@@ -35,21 +35,19 @@ namespace Speak_app.Controllers
 
         }
 
-        [HttpGet]
+        [HttpGet("{userId}")]
         public IActionResult GetUserChats(int userId)
         {
-            var user = GetCurrentUserProfile();
-            userId = user.Id;
             var chats = _chatRepository.GetUserChats(userId);
             return Ok(chats);
         }
 
-        [HttpGet("{chatId}")]
-        public IActionResult GetChatById(int chatId)
-        {
-            var chat =_chatRepository.GetChatById(chatId);
-            return Ok(chat);
-        }
+        //[HttpGet("{chatId}")]
+        //public IActionResult GetChatById(int chatId, string name)
+        //{
+        //    var chat =_chatRepository.GetChatById(chatId);
+        //    return Ok(chat);
+        //}
 
         [HttpGet("name/{name}")]
         public IActionResult GetChatByName(string name)

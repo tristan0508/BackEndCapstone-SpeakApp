@@ -8,9 +8,9 @@ export const UserContext = createContext();
 
 export function UserProvider(props) {
     const apiUrl = "/api/user";
-
     const user = localStorage.getItem("user");
     const userToken = localStorage.getItem("token");
+    const userId = localStorage.getItem("userId");
     const [isRegister, setIsRegister] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(user != null);
     const [isFirebaseReady, setIsFirebaseReady] = useState(false);
@@ -26,10 +26,11 @@ export function UserProvider(props) {
         return firebase.auth().signInWithEmailAndPassword(email, pw)
         .then((signInResponse) => getUser(signInResponse.user.uid))
         .then((user) => {
-            console.log(user.id)
             localStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem("userImage", user.image);
+            localStorage.setItem("userId", user.id);
             setIsLoggedIn(true);
-        });
+        })
     };
     
     const logout = () => {
@@ -65,8 +66,8 @@ export function UserProvider(props) {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
-            }).then(resp => resp.json()));
-    };
+            }).then(resp => resp.json())
+        )};
 
 
     const saveUser = (user) => {
@@ -82,7 +83,7 @@ export function UserProvider(props) {
     };
 
     return (
-        <UserContext.Provider value={{ isLoggedIn, isFirebaseReady, token, setIsLoggedIn, login, logout, register, getToken, setIsRegister }}>
+        <UserContext.Provider value={{ isLoggedIn, isFirebaseReady, token, setIsLoggedIn, login, logout, register, getToken, setIsRegister, userId }}>
         {props.children}
         </UserContext.Provider>
     );

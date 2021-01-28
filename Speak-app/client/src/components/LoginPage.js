@@ -1,4 +1,4 @@
-import React, { useContext, useState} from 'react';
+import React, { useContext, useEffect, useState} from 'react';
 import { UserContext } from '../providers/UserProvider';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -15,6 +15,7 @@ import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { loginTheme } from '../customtheme/MaterialTheme'
 import { history } from '../index'
+import { ChatContext } from '../providers/ChatProvider';
 
 const Copyright = () => {
   return (
@@ -62,11 +63,12 @@ const LoginPage = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const { login, setIsRegister } = useContext(UserContext);
-  
+  const { GetUserChat } = useContext(ChatContext)
 
   const handleLogin = () => {
     login(email, password)
       .then(() => history.push("/dashboard"))
+      .then(() => GetUserChat)
       .catch(() => alert("Invalid email or password"))
   }
 

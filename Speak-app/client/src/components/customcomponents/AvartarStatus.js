@@ -1,9 +1,8 @@
 import Badge from '@material-ui/core/Badge';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles, withStyles, createStyles } from '@material-ui/core/styles';
-import avatar from '../../images/Sam.png';
 
-const StyledBadge = withStyles((theme) =>
+export const StyledBadge = withStyles((theme) =>
     createStyles({
         badge: {
             backgroundColor: '#44b700',
@@ -35,8 +34,9 @@ const useStyles = makeStyles(() =>
     }),
 );
 
-const AvatarStatus = () => {
+const AvatarStatus = ({src, online}) => {
     const classes = useStyles();
+
 
 
     return (
@@ -48,9 +48,9 @@ const AvatarStatus = () => {
                     vertical: 'bottom',
                     horizontal: 'right',
                 }}
-                variant="dot"
+                variant={online ? "dot" : "standard"}
             >
-                <Avatar alt="avatar" src={avatar} />
+                <Avatar alt="avatar" src={src} />
             </StyledBadge>
         </div>
     );

@@ -1,83 +1,42 @@
-import React, { useState, createContext, useRef, useContext } from "react";
-import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+import React, { useState, createContext, useContext } from 'react';
 import { UserContext } from './UserProvider';
 
 
 export const ChatContext = createContext();
 
 export const ChatProvider = (props) => {
-
+    const token = localStorage.getItem("token");
     const [chat, setChat] = useState([]);
-    const currentChat = useRef(null);
-    const { token } = useContext(UserContext);
-    const [hubConnection, setHubConnection] = useState();
+    const [openModal, setOpenModal] = useState(false)
+    const [allUsers, setAllUsers] = useState([])
+    const [userOnline, setUserOnline] = useState(false)
+    const { userId } = useContext(UserContext)
 
-    currentChat.current = chat;
-
-    const HubConnection = () => {
-        const connection = new HubConnectionBuilder()
-            .withUrl('https://localhost:5001/chatHub', {
-                accessTokenFactory: () => token
-            })
-            .withAutomaticReconnect()
-            .configureLogging(LogLevel.Information)
-            .build();
-
-            connection.start()
-                .then(() => {
-                    console.log('Connected!');
-
-                    connection.on('ReceiveMessage', message => {
-                        const updateChat = [...currentChat.current];
-                        updateChat.push(message);
-                        setChat(updateChat);
-                        console.log(updateChat)
-                    })
-
-                    connection.on('Send', (e) => {
-                        console.log(e)
-                    })
-                   
-                })
-                .catch(e => console.log('Connection failed: ', e));
-                setHubConnection(connection);
-    }
-
-    const addMessage = async (input, chatId) => {
-        if(input.length !== 0) {
-            try {
-                let Message = {
-                    body: input,
-                    chatId: chatId,
+    const GetUserChat = () => {
+            fetch(`http://localhost:5000/api/chat/${userId}`, {
+                method: "GET",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    "Content-Type": "application/json"
                 }
-                await hubConnection.invoke("SendMessage", Message)
-            } catch (err) {
-                console.log(err)
+            }).then(res => res.json())
+            .then(res => setChat(res))
+    }
+
+    const GetAllUsers = () => {
+        fetch('http://localhost:5000/api/user', {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
             }
-        }
+        }).then(res => res.json())
+        .then(res => setAllUsers(res))
     }
-
-    const AddChannel = async (groupName) => {
-        try{
-            await hubConnection.invoke("AddToGroup", groupName)
-            console.log(groupName)
-        } catch (err) {
-            console.log(err)
-        }
-    }
-
-    const GetName = async () => {
-        await hubConnection.invoke("GetUserId")
-        .then(res => console.log(res))
-    }
-
-
-
-
-
 
     return (
-       <ChatContext.Provider value={{ HubConnection, GetName, hubConnection, addMessage, AddChannel, chat}}>
+       <ChatContext.Provider value={{ GetUserChat, chat, openModal, setOpenModal, GetAllUsers,
+       allUsers, userOnline, setUserOnline}}>
            {props.children}
        </ChatContext.Provider>
     )

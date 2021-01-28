@@ -37,7 +37,6 @@ const useStyles = makeStyles(() =>
 
 const MessageHeader = ({ openMenu, setOpenMenu }) => {
     const classes = useStyles();
-
     const [open, setOpen] = useState(false)
     const [initWidth, setInitWidth] = useState(0)
 
@@ -68,9 +67,7 @@ const MessageHeader = ({ openMenu, setOpenMenu }) => {
         setInitWidth(width1)
         if(width1 !== initWidth && openMenu === true){
             document.documentElement.style.setProperty('--msg-width', `${width1}px`)
-
         }
-        
     }
     
     const handleResize = () => {
@@ -78,8 +75,6 @@ const MessageHeader = ({ openMenu, setOpenMenu }) => {
         let box1 = document.getElementById('side-container');
         let width1 = box.offsetWidth;
         let width2 = box1.offsetWidth;
-
-
         openMenu? document.documentElement.style.setProperty('--msg-width', '100%') : 
         document.documentElement.style.setProperty('--msg-width', `${width1 - width2}px`)
     }

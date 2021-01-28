@@ -29,6 +29,13 @@ namespace SpeakApp.Controllers
             _userRepository = new UserRepository(context);
         }
 
+        [HttpGet]
+        public IActionResult AllUsers()
+        {
+            var users = _userRepository.AllUsers();
+            return Ok(users);
+        }
+
         [HttpGet("{firebaseUserId}")]
         public IActionResult GetByFirebaseUserId(string firebaseUserId)
         {

@@ -1,18 +1,20 @@
 import React, { useEffect, useState, useContext } from 'react';
-import {Container, Grid, TextField} from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import MessageArea from '../messagearea/MessageArea';
 import MessageHeader from '../messagearea/MessageHeader';
 import MessageLayout from '../messagearea/MessageLayout';
-import { ChatContext } from '../../providers/ChatProvider';
+import { ChatHubContext } from '../../providers/ChatHubProvider';
 import ChatSideBar from '../chatsidebar/ChatSideBar';
-// import { UserContext } from '../../providers/UserProvider'
+import { ChatDirectMessage } from '../chatsidebar/ChatDirectMessage';
+import { ChatContext } from '../../providers/ChatProvider';
 
 
 
 const Dashboard = () => {
     const [openMenu, setOpenMenu] = useState(false)
-    const { chat, AddChannel, HubConnection, GetName } = useContext(ChatContext);
-    const [chatName, setChatName] = useState("")
+    const { AddChannel, HubConnection } = useContext(ChatHubContext);
+    const { GetUserChat } = useContext(ChatContext)
+
    
     const scrollToEnd = () => {
         let chatElement = document.getElementById('chat');
@@ -25,6 +27,7 @@ const Dashboard = () => {
     useEffect(() => {
         scrollToEnd()
         HubConnection()
+        GetUserChat()
     }, [])
 
     return (
@@ -41,9 +44,8 @@ const Dashboard = () => {
 
                 <Grid id="chat-grid-container" container item className="chat-grid-container" alignItems="flex-start" >
                     <Grid id="chat" className="messages" container item xs={8}>
-                        
-                          <MessageLayout  />
-                       
+                            <ChatDirectMessage />
+                          <MessageLayout />
                     </Grid>
                 </Grid>
 
@@ -55,28 +57,7 @@ const Dashboard = () => {
             </Grid>
             
             <Grid id="side-container" container item className="maybe" xs={2}>
-                <Container>
-                <h1>CREATE CHAT</h1>
-               <TextField 
-               placeholder="Chat Name"
-               onChange={(e) => setChatName(e.currentTarget.value)}
-               value={chatName}
-               />
-                   <TextField 
-               placeholder="Type"
-               value="Channel"
-               />
-               <button onClick={() => {
-                   AddChannel(chatName)
-               }}>
-                   Submit Chat
-                </button>
-                <button onClick={() => {
-                    GetName()
-                }}>
-                    Getname
-                </button>
-               </Container>
+
             </Grid>
         </Grid>
     )

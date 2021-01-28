@@ -17,16 +17,20 @@ const ApplicationsViews = () => {
             <Route exact path ='/register'>
                 {!isLoggedIn ? <RegisterPage /> : <Redirect to='/dashboard'/>}
             </Route>
-            <Route path={'/(.+)'} render={() => (
+            <Route path={'/dashboard'} render={() => (
                 <Fragment>
                     <Header />
-                    <Route path='/dashboard'>
+                    <Route >
                         {isLoggedIn ? <Dashboard /> : <Redirect to='/'/>}
                     </Route>
+                    <Route path={'/dashboard/chat/:id'}/>
                 </Fragment>
 
 
             )}/>
+            <Route>
+                <Redirect to='/'/>
+            </Route>
         </Switch>
     )
 }

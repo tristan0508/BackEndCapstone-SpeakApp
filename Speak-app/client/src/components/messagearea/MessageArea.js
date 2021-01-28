@@ -1,6 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { ChatContext } from '../../providers/ChatProvider'
-
+import { ChatHubContext } from '../../providers/ChatHubProvider'
 import {
     makeStyles,
     TextField,
@@ -26,7 +25,7 @@ const useStyles = makeStyles(() =>
 const MessageArea = () => {
     const classes = useStyles();
     const [input, setInput] = useState("")
-    const { addMessage } = useContext(ChatContext);
+    const { addMessage } = useContext(ChatHubContext);
   
 
 
