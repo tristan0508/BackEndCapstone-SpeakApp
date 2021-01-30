@@ -35,15 +35,6 @@ namespace Speak_app.Hubs
             var user = _userRepository.GetByFirebaseUserId(firebaseId);
             return user;
         }
-        public string GetConnectionId() =>
-            Context.ConnectionId;
-
-        public string GetUserId()
-        {
-
-            return Context.User?.Claims?.FirstOrDefault(x => x.Type ==
-            ClaimTypes.NameIdentifier)?.Value;
-        }
 
         public async Task SendMessage(Message message, Receiver who)
         {
@@ -79,10 +70,6 @@ namespace Speak_app.Hubs
             return base.OnConnectedAsync();
         }
 
-        public async Task SendToCaller(Message message)
-        {
-            await Clients.Caller.SendAsync("ReceiveMessage", message.Body);
-        }
 
         public async Task AddToDirectChat(string id)
         {
@@ -110,17 +97,5 @@ namespace Speak_app.Hubs
             await Clients.Group(groupName).SendAsync("Send", $"{username.DisplayName} has left the group");
         }
 
-        public void SendChatMessage(string who, string message)
-        {
-            string name = Context.User.Identity.Name;
-
-            Clients.Group(who).SendAsync("AddChatMessage", message, name);
-        }
-
-        public string GetName()
-        {
-            string name = Context.User.Identity.Name;
-            return name;
-        }
     }
 }
