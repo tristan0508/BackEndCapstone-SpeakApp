@@ -36,7 +36,7 @@ namespace Speak_app.Hubs
             return user;
         }
 
-        public async Task SendMessage(Message message, Receiver who)
+        public async Task SendMessage(Message message)
         {
             var user = GetUser();
 

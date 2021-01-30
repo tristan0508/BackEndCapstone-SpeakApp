@@ -9,7 +9,6 @@ export const ChatHubProvider = (props) => {
 
     const { token, displayName, userImage } = useContext(UserContext);
     const [chatHub, setChatHub] = useState([]);
-    const [selectedChat, setSelectedChat] = ([]);
     const [hubConnection, setHubConnection] = useState();
     const [receiverId, setReceiverId] = useState(0);
     const [receiverFirebaseId, setReceiverFirebaseId] = useState("");
@@ -57,12 +56,7 @@ export const ChatHubProvider = (props) => {
                     displayName,
                     userImage
                 }
-                let Who = {
-                   firebaseUserId: receiverFirebaseId,
-                   ReceiverUserId: receiverId,
-                   fullName: receiverName
-                }
-                await hubConnection.invoke("SendMessage", Message, Who)
+                await hubConnection.invoke("SendMessage", Message)
             } catch (err) {
                 console.log(err)
             }
@@ -78,17 +72,10 @@ export const ChatHubProvider = (props) => {
         }
     }
 
-    const GetName = async () => {
-        await hubConnection.invoke("GetUserId")
-        .then(res => console.log(res))
-    }
-
-
 
     return (
-       <ChatHubContext.Provider value={{ HubConnection, GetName, hubConnection, addMessage, AddChannel, chatHub,
-        setReceiverId, setReceiverFirebaseId, setReceiverName, setCurrentChatParam, setChatHub, selectedChat,
-        setSelectedChat, currentChatParam}}>
+       <ChatHubContext.Provider value={{ HubConnection, hubConnection, addMessage, AddChannel, chatHub,
+        setReceiverId, setReceiverFirebaseId, setReceiverName, setCurrentChatParam, setChatHub, currentChatParam}}>
            {props.children}
        </ChatHubContext.Provider>
     )
