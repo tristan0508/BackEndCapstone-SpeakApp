@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { ChatContext } from '../../providers/ChatProvider';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -9,6 +9,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import AvatarStatus from '../customcomponents/AvartarStatus';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import { history } from '../..';
+import { ChatHubContext } from '../../providers/ChatHubProvider';
+import { UserContext } from '../../providers/UserProvider';
 
 
 const useStyles = makeStyles(() => ({
@@ -25,7 +28,9 @@ const useStyles = makeStyles(() => ({
 
 const ChatSideBar = () => {
     const classes = useStyles();
-    const { GetUserChat, chat, openModal, setOpenModal } = useContext(ChatContext)
+    const { chatList, openModal, setOpenModal, GetMessages } = useContext(ChatContext);
+    const { setCurrentChatParam } = useContext(ChatHubContext);
+    const { displayName } = useContext(UserContext);
 
     const handleModal = () => {
       if(openModal === false){
@@ -35,7 +40,12 @@ const ChatSideBar = () => {
       }
     }
 
-   
+    const handleChatRoute = (id) => {
+      setCurrentChatParam(id)
+      GetMessages(id)
+      history.push(`/dashboard/chat/${id}`)
+    }
+
 
     return (
         <div className={classes.root}>
@@ -48,13 +58,14 @@ const ChatSideBar = () => {
                 </Button>
             </Container>
             <Container>
-                {  chat.map((c) => {
+                {  chatList.map(c => {
                         if(c.type === 'Channel'){
                         return  <ListItem button key={c.id}>
                                     <PeopleAltIcon />
                                     <ListItemText className="chatListText" key={c.id} primary={c.name} />
                                 </ListItem>
                         }
+                        return null;
                     })
                 }
             </Container>
@@ -69,14 +80,20 @@ const ChatSideBar = () => {
                 </Button>
             </Container>
             <Container>
-                {  chat.map((c) => {
+                {  chatList.map(c => {
                         if(c.type === 'Direct Message'){
 
-                        return  <ListItem button key={c.id}>
-                                    <AvatarStatus />
-                                    <ListItemText className="chatListText" key={c.id} primary={c.name} />
+                        return  <ListItem button key={c.id} onClick={() => handleChatRoute(c.id)}>
+                                    <AvatarStatus src={c.sender === displayName ? c.receiverImage : c.senderImage}
+                                    alt="avatar"/>
+                                    <ListItemText 
+                                      className="chatListText"
+                                      key={c.id}
+                                      primary={c.sender === displayName ? c.receiver : c.sender}
+                                       />
                                 </ListItem>
                         }
+                        return null;
                     })
                 }
             </Container>

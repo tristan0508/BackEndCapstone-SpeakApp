@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { ChatHubContext } from '../../providers/ChatHubProvider'
 import {
     makeStyles,
@@ -13,6 +13,7 @@ import SendIcon from '@material-ui/icons/Send';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon'
 import { headerTheme } from '../../customtheme/MaterialTheme';
+import { ChatContext } from '../../providers/ChatProvider';
 
 const useStyles = makeStyles(() =>
     createStyles({
@@ -25,10 +26,13 @@ const useStyles = makeStyles(() =>
 const MessageArea = () => {
     const classes = useStyles();
     const [input, setInput] = useState("")
-    const { addMessage } = useContext(ChatHubContext);
+    const { addMessage, currentChatParam } = useContext(ChatHubContext);
+    const { GetMessages } = useContext(ChatContext)
   
 
+    useEffect(() => {
 
+    }, [GetMessages, currentChatParam, addMessage])
  
 
     return (
@@ -48,7 +52,8 @@ const MessageArea = () => {
                     }}
                     onKeyUp={(e) => {
                         if (e.key === 'Enter' && input.length !== 1){
-                            addMessage(input, 4)
+                            addMessage(input)
+                            GetMessages(currentChatParam)
                             setInput("")
                         }
                     }}

@@ -6,7 +6,6 @@ import { headerTheme } from '../../customtheme/MaterialTheme';
 import imageIcon from '../../images/messageicon.png'
 import { UserContext } from '../../providers/UserProvider';
 import { StyledBadge } from '../customcomponents/AvartarStatus';
-import { ChatContext } from '../../providers/ChatProvider';
 
 const useStyles = makeStyles((theme) =>
     createStyles({

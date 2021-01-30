@@ -21,5 +21,11 @@ namespace Speak_app.Repository
             var userChats = _context.UserChat.Where(uc => uc.UserId == userId).ToList();
             return userChats;
         }
+
+        public List<UserChat> GetConnectingUserChat(int chatId, int userId)
+        {
+            var userChats = _context.UserChat.Where(uc => uc.ChatId == chatId && uc.UserId != userId ).ToList();
+            return userChats;
+        }
     }
 }

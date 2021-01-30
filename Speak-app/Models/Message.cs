@@ -11,6 +11,8 @@ namespace SpeakApp.Models
         public string Body { get; set; }
         public int ChatId { get; set; }
         public int UserId { get; set; }
+        public string DisplayName { get; set; }
+        public string UserImage { get; set; }
         public DateTime DateCreated { get; set; }
         public Boolean Edit { get; set; }
         public Boolean Pinned { get; set; }

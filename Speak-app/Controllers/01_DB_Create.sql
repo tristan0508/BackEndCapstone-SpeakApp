@@ -27,6 +27,8 @@ CREATE TABLE [Message] (
   [ChatId] integer NOT NULL,
   [UserId] integer NOT NULL,
   [DateCreated] datetime NOT NULL,
+  [DisplayName] nvarchar(50) NOT NULL,
+  [UserImage] nvarchar(255) NULL,
   [Edit] bit NOT NULL DEFAULT (0),
   [Pinned] bit NOT NULL DEFAULT (0)
 )
@@ -35,7 +37,9 @@ GO
 CREATE TABLE [Chat] (
   [Id] integer IDENTITY(1, 1) PRIMARY KEY NOT NULL,
   [Name] nvarchar(255) NOT NULL,
-  [Type] nvarchar(255) NOT NULL
+  [Type] nvarchar(255) NOT NULL,
+  [Sender] nvarchar(255) NULL,
+  [Receiver] nvarchar(255) NULL
 )
 GO
 

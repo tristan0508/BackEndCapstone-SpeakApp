@@ -42,13 +42,6 @@ namespace Speak_app.Controllers
             return Ok(chats);
         }
 
-        //[HttpGet("{chatId}")]
-        //public IActionResult GetChatById(int chatId, string name)
-        //{
-        //    var chat =_chatRepository.GetChatById(chatId);
-        //    return Ok(chat);
-        //}
-
         [HttpGet("name/{name}")]
         public IActionResult GetChatByName(string name)
         {

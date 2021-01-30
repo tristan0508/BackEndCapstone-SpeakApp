@@ -12,7 +12,7 @@ import { ChatContext } from '../../providers/ChatProvider';
 
 const Dashboard = () => {
     const [openMenu, setOpenMenu] = useState(false)
-    const { AddChannel, HubConnection } = useContext(ChatHubContext);
+    const { HubConnection } = useContext(ChatHubContext);
     const { GetUserChat } = useContext(ChatContext)
 
    
@@ -44,8 +44,8 @@ const Dashboard = () => {
 
                 <Grid id="chat-grid-container" container item className="chat-grid-container" alignItems="flex-start" >
                     <Grid id="chat" className="messages" container item xs={8}>
-                            <ChatDirectMessage />
-                          <MessageLayout />
+                        <ChatDirectMessage />
+                        <MessageLayout />
                     </Grid>
                 </Grid>
 

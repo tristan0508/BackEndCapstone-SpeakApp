@@ -10,5 +10,9 @@ namespace SpeakApp.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
+        public string Sender { get; set; }
+        public string Receiver { get; set; }
+        public string SenderImage { get; set; }
+        public string ReceiverImage { get; set; }
     }
 }

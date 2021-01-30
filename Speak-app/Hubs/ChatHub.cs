@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
+using Speak_app.Models;
 using Speak_app.Repository;
 using SpeakApp.Data;
 using SpeakApp.Models;
@@ -44,7 +45,7 @@ namespace Speak_app.Hubs
             ClaimTypes.NameIdentifier)?.Value;
         }
 
-        public async Task SendMessage(Message message)
+        public async Task SendMessage(Message message, Receiver who)
         {
             var user = GetUser();
 
@@ -53,12 +54,29 @@ namespace Speak_app.Hubs
                 Body = message.Body,
                 ChatId = message.ChatId,
                 UserId = user.Id,
+                DisplayName = message.DisplayName,
+                UserImage = message.UserImage,
                 DateCreated = DateTime.Now
             };
 
              Message msg = _messageRepository.AddMessage(newMessage);
 
-            await Clients.All.SendAsync("ReceiveMessage", msg);
+            await Clients.Group(message.ChatId.ToString()).SendAsync("ReceiveMessage", msg);
+        }
+
+        public override Task OnConnectedAsync()
+        {
+            int userId = GetUser().Id;
+
+            var allChats = _chatRepository.GetUserChats(userId);
+
+            foreach(var chat in allChats)
+            {
+                string chatId = chat.Id.ToString();
+                Groups.AddToGroupAsync(Context.ConnectionId, chatId);
+            }
+
+            return base.OnConnectedAsync();
         }
 
         public async Task SendToCaller(Message message)
@@ -66,24 +84,24 @@ namespace Speak_app.Hubs
             await Clients.Caller.SendAsync("ReceiveMessage", message.Body);
         }
 
-        public async Task AddToGroup(string groupName)
+        public async Task AddToDirectChat(string id)
         {
-            await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+            await Groups.AddToGroupAsync(Context.ConnectionId, id);
 
             var chat = new Chat()
             {
-                Name = groupName,
-                Type = "Channel"
+                Name = id,
+                Type = "Direct Message"
             };
 
             _chatRepository.addChat(chat);
 
             var username = GetUser();
 
-            await Clients.Group(groupName).SendAsync("Send", $"{username.DisplayName} has joined the group");
+            await Clients.Group(id).SendAsync("Send", $"{username.DisplayName} has joined the group");
         }
 
-        public async Task RemoveFromGroup(string groupName)
+        public async Task RemoveFromGroupChat(string groupName)
         {
             await Groups.RemoveFromGroupAsync(Context.ConnectionId, groupName);
 

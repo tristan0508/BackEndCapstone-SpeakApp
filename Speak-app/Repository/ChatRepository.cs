@@ -24,13 +24,13 @@ namespace SpeakApp.Repository
         public List<Chat> GetUserChats(int userId)
         {
             List<int> chatId = new List<int>();
-            List<Chat> chats = new List<Chat>();
             var userChats = _userChatRepository.GetUserChatIds(userId);
             foreach(var chat in userChats)
             {
                 chatId.Add(chat.ChatId);
             }
             
+            List<Chat> chats = new List<Chat>();
             foreach(var id in chatId)
             {
                 Chat chat = _context.Chat.First(chat => chat.Id == id);
@@ -38,10 +38,8 @@ namespace SpeakApp.Repository
             }
 
             return chats;
-
         }
         
-        //public List<User> GetAllConnectedUsers()
         public Chat GetChatById(int id)
         {
             var chat = _context.Chat.FirstOrDefault(chat => chat.Id == id);
@@ -49,7 +47,7 @@ namespace SpeakApp.Repository
         }
         public Chat GetChatByName(string name)
         {
-            var chat = _context.Chat.FirstOrDefault(chat => chat.Name == name);
+            var chat = _context.Chat.FirstOrDefault(chat => chat.Name == name && chat.Type == "Channel");
             return chat;
         }
 

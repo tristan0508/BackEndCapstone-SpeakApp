@@ -7,10 +7,15 @@ export const ChatHubContext = createContext();
 
 export const ChatHubProvider = (props) => {
 
+    const { token, displayName, userImage } = useContext(UserContext);
     const [chatHub, setChatHub] = useState([]);
-    const currentChat = useRef(null);
-    const { token } = useContext(UserContext);
+    const [selectedChat, setSelectedChat] = ([]);
     const [hubConnection, setHubConnection] = useState();
+    const [receiverId, setReceiverId] = useState(0);
+    const [receiverFirebaseId, setReceiverFirebaseId] = useState("");
+    const [ receiverName, setReceiverName] = useState("");
+    const [currentChatParam, setCurrentChatParam] = useState(0)
+    const currentChat = useRef(null);
 
     currentChat.current = chatHub;
 
@@ -43,14 +48,21 @@ export const ChatHubProvider = (props) => {
                 setHubConnection(connection);
     }
 
-    const addMessage = async (input, chatId) => {
+    const addMessage = async (input) => {
         if(input.length !== 0) {
             try {
                 let Message = {
                     body: input,
-                    chatId: chatId,
+                    chatId: currentChatParam,
+                    displayName,
+                    userImage
                 }
-                await hubConnection.invoke("SendMessage", Message)
+                let Who = {
+                   firebaseUserId: receiverFirebaseId,
+                   ReceiverUserId: receiverId,
+                   fullName: receiverName
+                }
+                await hubConnection.invoke("SendMessage", Message, Who)
             } catch (err) {
                 console.log(err)
             }
@@ -73,11 +85,10 @@ export const ChatHubProvider = (props) => {
 
 
 
-
-
-
     return (
-       <ChatHubContext.Provider value={{ HubConnection, GetName, hubConnection, addMessage, AddChannel, chatHub}}>
+       <ChatHubContext.Provider value={{ HubConnection, GetName, hubConnection, addMessage, AddChannel, chatHub,
+        setReceiverId, setReceiverFirebaseId, setReceiverName, setCurrentChatParam, setChatHub, selectedChat,
+        setSelectedChat, currentChatParam}}>
            {props.children}
        </ChatHubContext.Provider>
     )

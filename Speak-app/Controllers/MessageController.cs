@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Speak_app.Hubs;
@@ -16,6 +17,7 @@ namespace Speak_app.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class MessageController : ControllerBase
     {
         private User GetCurrentUserProfile()
@@ -33,12 +35,12 @@ namespace Speak_app.Controllers
             _userRepository = new UserRepository(context);
         }
 
-        [HttpGet("{userId}")]
-        public IActionResult GetMessagesByUserId(int userId)
+        [HttpGet]
+        public IActionResult GetMessagesByUserId()
         {
             var user = GetCurrentUserProfile();
-            var messages = _messageRepository.GetMessagesByUserId(userId);
-            return Ok(user.Id);
+            var messages = _messageRepository.GetMessagesByUserId(user.Id);
+            return Ok(messages);
         }
 
         [HttpPost("{msgId}")]
@@ -48,10 +50,11 @@ namespace Speak_app.Controllers
             return Ok();
         }
 
-        //[HttpPost]
-        //public async Task Add(Message message)
-        //{
-            
-        //}
+        [HttpGet("{chatId}")]
+        public IActionResult GetMessagesBuChatId(int chatId)
+        {
+            var messages = _messageRepository.ChatMessages(chatId);
+            return Ok(messages);
+        }
     }
 }
