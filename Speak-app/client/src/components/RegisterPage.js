@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react';
-import { UserContext } from '../providers/UserProvider';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,6 +12,7 @@ import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { loginTheme } from '../customtheme/MaterialTheme'
 import { history } from '../index'
+import UserContext from '../providers/UserContext';
 
 function Copyright() {
   return (

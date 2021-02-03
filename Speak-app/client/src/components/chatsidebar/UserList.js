@@ -3,21 +3,31 @@ import { ChatContext } from '../../providers/ChatProvider';
 import { Container, ListItem } from '@material-ui/core';
 import AvatarStatus from '../customcomponents/AvartarStatus';
 import { ChatHubContext } from '../../providers/ChatHubProvider';
+import UserContext from '../../providers/UserContext';
+
 
 
 
 export const UserList = () => {
-    const { GetAllUsers, allUsers, userOnline } = useContext(ChatContext)
-    const { setReceiverId, setReceiverFirebaseId, setReceiverName } = useContext(ChatHubContext)
+    const { GetAllUsers, allUsers, userOnline, AddChat } = useContext(ChatContext)
+    const { displayName, userImage } = useContext(UserContext);
     useEffect(() => {
         GetAllUsers()
     }, [])
 
-    const handleReceiver = (firebaseId, receiverId, first, last) => {
-        setReceiverFirebaseId(firebaseId)
-        setReceiverId(receiverId)
-        setReceiverName(`${first} ${last}`)
-        
+    const handleReceiver = (first, last, image) => {
+     
+
+        const Chat = {
+            name: displayName,
+            type: "Direct Message",
+            sender: displayName,
+            receiver: `${first} ${last}`,
+            senderImage: userImage,
+            receiverImage: image ? image : null
+        }
+
+        AddChat(Chat)
     }
 
     return (
@@ -30,15 +40,12 @@ export const UserList = () => {
                                 <button 
                                  onClick={() => 
                                     handleReceiver(
-                                        u.firebaseUserId,
-                                        u.id,
                                         u.firstName,
-                                        u.lastName
+                                        u.lastName,
+                                        u.image
                                     )} 
                                  className="userListBtn">
-                                    {u.firstName}
-                                    {u.lastName} #
-                                    {u.displayName}
+                                    {u.firstName} {u.lastName} # {u.displayName}
                                 </button>
                             </Container>
                         </div>

@@ -11,7 +11,7 @@ import AvatarStatus from '../customcomponents/AvartarStatus';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import { history } from '../..';
 import { ChatHubContext } from '../../providers/ChatHubProvider';
-import { UserContext } from '../../providers/UserProvider';
+import UserContext from '../../providers/UserContext';
 
 
 const useStyles = makeStyles(() => ({
@@ -29,10 +29,11 @@ const useStyles = makeStyles(() => ({
 const ChatSideBar = () => {
     const classes = useStyles();
     const { chatList, openModal, setOpenModal, GetMessages } = useContext(ChatContext);
-    const { setCurrentChatParam } = useContext(ChatHubContext);
+    const { setCurrentChatParam, setChatType } = useContext(ChatHubContext);
     const { displayName } = useContext(UserContext);
 
-    const handleModal = () => {
+    const handleDirectModal = (e) => {
+      setChatType(e)
       if(openModal === false){
         setOpenModal(true)
       } else {
@@ -53,7 +54,7 @@ const ChatSideBar = () => {
           <List component="nav" aria-label="main mailbox folders">
             <Container>
                 <h4>Channels</h4>
-                <Button variant="outlined" color="secondary">
+                <Button variant="outlined" color="secondary" onClick={() => setChatType("Channel")}>
                 Add Channel
                 </Button>
             </Container>
@@ -75,12 +76,16 @@ const ChatSideBar = () => {
             <Container>
                 <h4>Direct Messages</h4>
                
-                <Button variant="outlined" color="secondary" onClick={handleModal}>
+                <Button variant="outlined" color="secondary" onClick={() => {
+                  handleDirectModal()
+                  setChatType("Direct Message")
+                }}>
                 New Direct Message
                 </Button>
             </Container>
             <Container>
                 {  chatList.map(c => {
+                  console.log(c)
                         if(c.type === 'Direct Message'){
 
                         return  <ListItem button key={c.id} onClick={() => handleChatRoute(c.id)}>

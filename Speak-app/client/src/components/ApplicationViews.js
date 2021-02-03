@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import Header from '../components/header/Header';
 import Dashboard from '../components/dashboard/Dashboard';
-import { UserContext } from '../providers/UserProvider'
 import { Fragment } from "react";
 import RegisterPage from "./RegisterPage";
 import LoginPage from "./LoginPage";
+import UserContext from "../providers/UserContext";
 
 const ApplicationsViews = () => {
     const { isLoggedIn } = useContext(UserContext)
@@ -35,4 +35,4 @@ const ApplicationsViews = () => {
     )
 }
 
-export default withRouter(ApplicationsViews);
+export default ApplicationsViews;
