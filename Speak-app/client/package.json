@@ -18,6 +18,7 @@
     "enzyme-adapter-react-16": "^1.15.6",
     "firebase": "^8.2.3",
     "jest": "^26.6.0",
+    "madge": "^4.0.0",
     "material-ui-dropzone": "^3.5.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

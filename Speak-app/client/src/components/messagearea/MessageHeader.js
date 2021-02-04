@@ -49,6 +49,8 @@ const MessageHeader = ({ openMenu, setOpenMenu }) => {
         } else {
             setOpen(false);
         }
+
+  
     }
 
 
@@ -91,6 +93,7 @@ const MessageHeader = ({ openMenu, setOpenMenu }) => {
                     <Divider orientation="vertical" flexItem variant="middle" />
                     <ButtonBase>
                         <Tooltip
+                            data-testid="handleOpen"
                             onClick={handleOpen}
                             open={open}
                             title="Add"
@@ -107,7 +110,7 @@ const MessageHeader = ({ openMenu, setOpenMenu }) => {
                         <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
                     </AvatarGroup>
 
-                    <IconButton onClick={handleOpenMenu} color="inherit">
+                    <IconButton data-testid="handleMenu" onClick={handleOpenMenu} color="inherit">
                         <MenuOpenIcon className={openMenu ? classes.active : undefined} />
                     </IconButton>
                 </Toolbar>

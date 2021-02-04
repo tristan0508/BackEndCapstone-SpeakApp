@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Message Header renders Message Header component 1`] = `
+<header
+  className="MuiPaper-root MuiAppBar-root MuiAppBar-positionRelative MuiAppBar-colorPrimary MuiPaper-elevation4"
+  style={
+    Object {
+      "backgroundColor": "#1dcaff",
+      "border": "1px solid white",
+    }
+  }
+>
+  <div
+    className="MuiToolbar-root MuiToolbar-regular MuiToolbar-gutters"
+  >
+    <button
+      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit"
+      disabled={false}
+      onBlur={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      title="Pin"
+      type="button"
+    >
+      <span
+        className="MuiIconButton-label"
+      >
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M19 2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h4l3 3 3-3h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 16h-4.83l-.59.59L12 20.17l-1.59-1.59-.58-.58H5V4h14v14zm-7-1l1.88-4.12L18 11l-4.12-1.88L12 5l-1.88 4.12L6 11l4.12 1.88z"
+          />
+        </svg>
+      </span>
+      <span
+        className="MuiTouchRipple-root"
+      />
+    </button>
+    <hr
+      className="MuiDivider-root MuiDivider-middle MuiDivider-flexItem MuiDivider-vertical"
+    />
+    <button
+      className="MuiButtonBase-root"
+      disabled={false}
+      onBlur={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      <div
+        aria-describedby={null}
+        className=""
+        color="inherit"
+        data-testid="handleOpen"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        onMouseLeave={[Function]}
+        onMouseOver={[Function]}
+        onTouchEnd={[Function]}
+        onTouchStart={[Function]}
+        title="Add"
+      >
+        Topic
+      </div>
+      <span
+        className="MuiTouchRipple-root"
+      />
+    </button>
+    <div
+      className="MuiAvatarGroup-root avatar"
+      title="View all 3 members"
+    >
+      <div
+        className="MuiAvatar-root MuiAvatar-circle MuiAvatarGroup-avatar"
+        style={
+          Object {
+            "marginLeft": undefined,
+            "zIndex": 3,
+          }
+        }
+      >
+        <img
+          alt="Remy Sharp"
+          className="MuiAvatar-img"
+          src="headshot.jpg"
+        />
+      </div>
+      <div
+        className="MuiAvatar-root MuiAvatar-circle MuiAvatarGroup-avatar MuiAvatar-colorDefault"
+        style={
+          Object {
+            "marginLeft": null,
+            "zIndex": 0,
+          }
+        }
+      >
+        +
+        2
+      </div>
+    </div>
+    <button
+      className="MuiButtonBase-root MuiIconButton-root MuiIconButton-colorInherit"
+      data-testid="handleMenu"
+      disabled={false}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onDragLeave={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      onMouseLeave={[Function]}
+      onMouseUp={[Function]}
+      onTouchEnd={[Function]}
+      onTouchMove={[Function]}
+      onTouchStart={[Function]}
+      tabIndex={0}
+      type="button"
+    >
+      <span
+        className="MuiIconButton-label"
+      >
+        <svg
+          aria-hidden={true}
+          className="MuiSvgIcon-root"
+          focusable="false"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M3 18h13v-2H3v2zm0-5h10v-2H3v2zm0-7v2h13V6H3zm18 9.59L17.42 12 21 8.41 19.59 7l-5 5 5 5L21 15.59z"
+          />
+        </svg>
+      </span>
+      <span
+        className="MuiTouchRipple-root"
+      />
+    </button>
+  </div>
+</header>
+`;

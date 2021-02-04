@@ -8,8 +8,6 @@ import ChatSideBar from '../chatsidebar/ChatSideBar';
 import { ChatDirectMessage } from '../chatsidebar/ChatDirectMessage';
 import { ChatContext } from '../../providers/ChatProvider';
 
-
-
 const Dashboard = () => {
     const [openMenu, setOpenMenu] = useState(false)
     const { HubConnection } = useContext(ChatHubContext);

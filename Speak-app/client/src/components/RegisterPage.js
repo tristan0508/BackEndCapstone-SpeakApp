@@ -55,9 +55,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+
 const RegisterPage = () =>  {
   const classes = useStyles();
-  const { setIsRegister, register } = useContext(UserContext)
+  const {register} = useContext(UserContext);
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [displayName, setDisplayName] = useState("")
@@ -66,7 +67,6 @@ const RegisterPage = () =>  {
   const [confirmPass, setConfirmPass] = useState("")
 
   const handleLoginPush = () => {
-    setIsRegister(false)
     history.push("/")
   }
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { ChatContext } from '../../providers/ChatProvider';
 import { Container, ListItem } from '@material-ui/core';
-import AvatarStatus from '../customcomponents/AvartarStatus';
+import AvatarStatus from '../customcomponents/AvatarStatus';
 import { ChatHubContext } from '../../providers/ChatHubProvider';
 import UserContext from '../../providers/UserContext';
 

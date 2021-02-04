@@ -7,7 +7,7 @@ import { Button, Container, ThemeProvider } from '@material-ui/core';
 import { headerTheme } from '../../customtheme/MaterialTheme';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
-import AvatarStatus from '../customcomponents/AvartarStatus';
+import AvatarStatus from '../customcomponents/AvatarStatus';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import { history } from '../..';
 import { ChatHubContext } from '../../providers/ChatHubProvider';
