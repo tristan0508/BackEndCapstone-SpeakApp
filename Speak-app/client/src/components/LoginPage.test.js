@@ -5,7 +5,6 @@ import '@testing-library/jest-dom';
 import { LoginPage } from './LoginPage';
 
 let firstSnap = {};
-let secondSnap = {};
 
 describe('Login snapshot', () => {
     firstSnap = renderer
