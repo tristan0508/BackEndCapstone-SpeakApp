@@ -12,7 +12,7 @@ import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { loginTheme } from '../customtheme/MaterialTheme'
 import { history } from '../index'
-import UserContext from '../providers/UserContext';
+import { UserContext } from '../providers/ContextProvider';
 
 function Copyright() {
   return (

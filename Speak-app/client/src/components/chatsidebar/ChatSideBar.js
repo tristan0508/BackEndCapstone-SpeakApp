@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { ChatContext } from '../../providers/ChatProvider';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -10,8 +9,7 @@ import ListItem from '@material-ui/core/ListItem';
 import AvatarStatus from '../customcomponents/AvatarStatus';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import { history } from '../..';
-import { ChatHubContext } from '../../providers/ChatHubProvider';
-import UserContext from '../../providers/UserContext';
+import { UserContext, ChatHubContext, ChatContext } from '../../providers/ContextProvider';
 
 
 const useStyles = makeStyles(() => ({
@@ -85,7 +83,6 @@ const ChatSideBar = () => {
             </Container>
             <Container>
                 {  chatList.map(c => {
-                  console.log(c)
                         if(c.type === 'Direct Message'){
 
                         return  <ListItem button key={c.id} onClick={() => handleChatRoute(c.id)}>

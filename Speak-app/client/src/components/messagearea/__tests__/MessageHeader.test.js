@@ -18,5 +18,6 @@ describe('Message Header', () => {
         const {getByTestId} = render(<MessageHeader />)
         expect(fireEvent.click(getByTestId('handleOpen'))).toBeCalled
     })
+
 });
 

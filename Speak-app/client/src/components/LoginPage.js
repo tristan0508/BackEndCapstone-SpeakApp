@@ -13,8 +13,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { loginTheme } from '../customtheme/MaterialTheme'
-import { history } from '../index'
-import UserContext from '../providers/UserContext';
+import { useHistory } from 'react-router-dom';
 
 
 
@@ -62,17 +61,15 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const LoginPage = () => {
+export const LoginPage = ({login}) => {
   const classes = useStyles();
   const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const { login } = useContext(UserContext);
+  const [password, setPassword] = useState("");
+  const history = useHistory()
 
 
   const handleLogin = () => {
     login(email, password)
-      .then(() => history.push("/dashboard"))
-      .catch(() => alert("Invalid email or password"))
   }
 
   const handleRegisterPush = () => {
@@ -80,6 +77,7 @@ const LoginPage = () => {
   }
 
   return (
+    <div>
     <ThemeProvider theme={loginTheme}>
         <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -177,6 +175,6 @@ const LoginPage = () => {
         </Box>
         </Container>
     </ThemeProvider>
+    </div>
   );
 }
-export default LoginPage;

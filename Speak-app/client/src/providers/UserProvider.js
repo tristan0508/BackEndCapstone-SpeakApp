@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
 import { history } from "../index"
-import UserContext from './UserContext';
+import { UserContext } from './ContextProvider';
 
 
 

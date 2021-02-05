@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import Modal from '@material-ui/core/Modal';
-import { ChatContext } from '../../providers/ChatProvider';
+import { ChatContext } from '../../providers/ContextProvider';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';

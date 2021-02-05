@@ -1,10 +1,8 @@
-import React, { useState, createContext, useRef, useContext } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
-import UserContext from "./UserContext";
+import { ChatHubContext, UserContext } from './ContextProvider';
 
 
-
-export const ChatHubContext = createContext();
 
 export const ChatHubProvider = (props) => {
 

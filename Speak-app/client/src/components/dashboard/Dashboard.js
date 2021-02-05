@@ -1,12 +1,11 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useContext, useRef } from 'react';
 import { Grid } from '@material-ui/core';
 import MessageArea from '../messagearea/MessageArea';
 import MessageHeader from '../messagearea/MessageHeader';
 import MessageLayout from '../messagearea/MessageLayout';
-import { ChatHubContext } from '../../providers/ChatHubProvider';
 import ChatSideBar from '../chatsidebar/ChatSideBar';
 import { ChatDirectMessage } from '../chatsidebar/ChatDirectMessage';
-import { ChatContext } from '../../providers/ChatProvider';
+import { ChatContext, ChatHubContext } from '../../providers/ContextProvider';
 
 const Dashboard = () => {
     const [openMenu, setOpenMenu] = useState(false)
@@ -28,6 +27,9 @@ const Dashboard = () => {
         GetUserChat()
     }, [])
 
+    const chatContainer = useRef();
+    const sideContainer = useRef();
+
     return (
         <Grid container >
             <Grid container item xs={1} >
@@ -38,9 +40,13 @@ const Dashboard = () => {
             </Grid>
 
             <Grid id="chat-container" className="chat-grid-item" container item xs={openMenu ? 6 : 8}>
-                <MessageHeader openMenu={openMenu} setOpenMenu={setOpenMenu} />
+                <MessageHeader 
+                openMenu={openMenu}
+                setOpenMenu={setOpenMenu}
+                chatContainer={chatContainer}
+                sideContainer={sideContainer} />
 
-                <Grid id="chat-grid-container" container item className="chat-grid-container" alignItems="flex-start" >
+                <Grid id="chat-grid-container" ref={chatContainer} container item className="chat-grid-container" alignItems="flex-start" >
                     <Grid id="chat" className="messages" container item xs={8}>
                         <ChatDirectMessage />
                         <MessageLayout />
@@ -54,7 +60,7 @@ const Dashboard = () => {
                 </Grid>
             </Grid>
             
-            <Grid id="side-container" container item className="maybe" xs={2}>
+            <Grid id="side-container" ref={sideContainer} container item className="maybe" xs={2}>
 
             </Grid>
         </Grid>

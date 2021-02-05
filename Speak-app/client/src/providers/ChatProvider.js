@@ -1,10 +1,8 @@
-import React, { useState, createContext, useContext } from 'react';
-import { ChatHubContext } from './ChatHubProvider';
-import UserContext from './UserContext';
+import React, { useState, useContext } from 'react';
+import { ChatContext, UserContext, ChatHubContext } from './ContextProvider';
 
 
 
-export const ChatContext = createContext();
 
 export const ChatProvider = (props) => {
     const token = localStorage.getItem("token");

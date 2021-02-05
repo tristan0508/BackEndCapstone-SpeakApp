@@ -5,7 +5,7 @@ import { Menu } from '@material-ui/icons';
 import { headerTheme } from '../../customtheme/MaterialTheme';
 import imageIcon from '../../images/messageicon.png'
 import { StyledBadge } from '../customcomponents/AvatarStatus';
-import UserContext from '../../providers/UserContext';
+import { UserContext } from '../../providers/ContextProvider';
 
 const useStyles = makeStyles((theme) =>
     createStyles({
