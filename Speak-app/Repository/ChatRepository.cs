@@ -13,12 +13,15 @@ namespace SpeakApp.Repository
         private readonly ApplicationDbContext _context;
         private readonly MessageRepository _messageRepository;
         private readonly UserChatRepository _userChatRepository;
+        private readonly UserRepository _userRepository;
+
 
         public ChatRepository(ApplicationDbContext context)
         {
             _context = context;
             _messageRepository = new MessageRepository(context);
             _userChatRepository = new UserChatRepository(context);
+            _userRepository = new UserRepository(context);
         }
 
         public List<Chat> GetUserChats(int userId)
@@ -29,11 +32,13 @@ namespace SpeakApp.Repository
             {
                 chatId.Add(chat.ChatId);
             }
+
             
             List<Chat> chats = new List<Chat>();
             foreach(var id in chatId)
             {
-                Chat chat = _context.Chat.First(chat => chat.Id == id);
+                Chat chat = _context.Chat.FirstOrDefault(chat => chat.Id == id);
+
                 chats.Add(chat);
             }
 
@@ -53,13 +58,31 @@ namespace SpeakApp.Repository
 
         public Chat addChat(Chat chat)
         {
-            _context.Add(chat);
+            var newChat = new Chat()
+            {
+                Name = chat.Name,
+                Type = chat.Type,
+                Sender = chat.Sender,
+                Receiver = chat.Receiver,
+                SenderImage = chat.SenderImage,
+                ReceiverImage = chat.ReceiverImage
+            };
+            _context.Add(newChat);
             _context.SaveChanges();
-            var chatObj = GetChatById(chat.Id);
+
+
+            var userChat = new UserChat()
+            {
+                ChatId = newChat.Id,
+                UserId = 2,
+            };
+
+            _userChatRepository.AddUserChat(userChat);
+            var chatObj = GetChatById(newChat.Id);
             return chatObj;
         }
 
-        public void removeChat(int chatId)
+        public void removeChat(int chatId, User user)
         {   
             var messages = _messageRepository.ChatMessages(chatId);
             foreach(Message message in messages)
@@ -67,6 +90,9 @@ namespace SpeakApp.Repository
                 _context.Remove(message);
             };
             _context.SaveChanges();
+
+            var userId = user.Id;
+            _userChatRepository.Delete(chatId, userId);
 
             var chat = GetChatById(chatId);
             _context.Remove(chat);

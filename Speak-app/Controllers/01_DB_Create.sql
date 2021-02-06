@@ -39,7 +39,8 @@ CREATE TABLE [Chat] (
   [Name] nvarchar(255) NOT NULL,
   [Type] nvarchar(255) NOT NULL,
   [Sender] nvarchar(255) NULL,
-  [Receiver] nvarchar(255) NULL
+  [Receiver] nvarchar(255) NULL,
+  [
 )
 GO
 

@@ -51,7 +51,7 @@ namespace Speak_app.Hubs
             };
 
              Message msg = _messageRepository.AddMessage(newMessage);
-
+            // Two possible end points depending on new chat or not for receiver
             await Clients.Group(message.ChatId.ToString()).SendAsync("ReceiveMessage", msg);
         }
 
@@ -96,6 +96,8 @@ namespace Speak_app.Hubs
 
             await Clients.Group(groupName).SendAsync("Send", $"{username.DisplayName} has left the group");
         }
+
+
 
     }
 }
