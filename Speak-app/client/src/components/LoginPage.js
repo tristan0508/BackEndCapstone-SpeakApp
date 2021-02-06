@@ -1,4 +1,4 @@
-import React, { useContext, useState} from 'react';
+import React, { useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -69,7 +69,7 @@ export const LoginPage = ({login}) => {
 
 
   const handleLogin = () => {
-    login(email, password)
+      login(email, password)
   }
 
   const handleRegisterPush = () => {
@@ -147,8 +147,9 @@ export const LoginPage = ({login}) => {
                 label="Remember me"
             />
             <Button
+                data-testid="signIn"
                 onClick={handleLogin}
-                data-testid='signIn'
+                id='signIn'
                 fullWidth
                 variant="contained"
                 color="primary"

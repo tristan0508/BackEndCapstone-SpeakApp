@@ -43,8 +43,8 @@ describe('Form Validation', () => {
 
 describe('Login to be called', () => {
     let mockLogin = jest.fn(() => "Logged In")
-    const {getByTestId} = render(<LoginPage login={mockLogin}/>)
+    const {getByTestId} = render(<LoginPage login={mockLogin}/>
+    )
 
-       expect(fireEvent.click(getByTestId("signIn"))).toEqual(true)
-        
+       expect(fireEvent.click(getByTestId("signIn"))).toEqual(true)   
 })

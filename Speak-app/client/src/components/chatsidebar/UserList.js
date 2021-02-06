@@ -7,8 +7,9 @@ import { UserContext, ChatContext } from '../../providers/ContextProvider';
 
 
 export const UserList = () => {
-    const { GetAllUsers, allUsers, userOnline, AddChat } = useContext(ChatContext)
+    const { GetAllUsers, allUsers, userOnline, AddChat, setOpenModal } = useContext(ChatContext)
     const { displayName, userImage } = useContext(UserContext);
+
     useEffect(() => {
         GetAllUsers()
     }, [])
@@ -26,6 +27,7 @@ export const UserList = () => {
         }
 
         AddChat(Chat)
+        setOpenModal(false)
     }
 
     return (

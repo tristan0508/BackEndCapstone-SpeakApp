@@ -196,6 +196,7 @@ exports[` 1`] = `
           className="MuiButtonBase-root MuiButton-root MuiButton-contained makeStyles-submit-4 MuiButton-containedPrimary MuiButton-fullWidth"
           data-testid="signIn"
           disabled={false}
+          id="signIn"
           onBlur={[Function]}
           onClick={[Function]}
           onDragLeave={[Function]}
