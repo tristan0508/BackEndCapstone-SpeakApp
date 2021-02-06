@@ -1,11 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import { App } from './App';
 import reportWebVitals from './reportWebVitals';
 import firebase from "firebase/app";
 import { createBrowserHistory } from 'history';
 import { Router } from 'react-router-dom';
+import { UserProvider } from './providers/UserProvider'
+import { ChatProvider } from './providers/ChatProvider';
+import { ChatHubProvider } from './providers/ChatHubProvider';
 
 export const history = createBrowserHistory();
 
@@ -17,10 +20,16 @@ firebase.initializeApp(firebaseConfig);
 ReactDOM.render(
   <React.StrictMode>
     <Router history={history}>
-      <App />
+      <UserProvider>
+        <ChatHubProvider>
+          <ChatProvider>
+            <App />
+          </ChatProvider>
+        </ChatHubProvider>
+      </UserProvider>
     </Router>
   </React.StrictMode>,
-  document.getElementById('root')
+  document.getElementById('root') || document.createElement('div'),
 );
 
 // If you want to start measuring performance in your app, pass a function

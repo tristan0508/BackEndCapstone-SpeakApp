@@ -16,6 +16,7 @@ import { headerTheme } from '../../customtheme/MaterialTheme';
 import { AvatarGroup } from '@material-ui/lab';
 import avatar from '../../images/headshot.jpg';
 import MenuOpenIcon from '@material-ui/icons/MenuOpen';
+import { handleOpen } from '../../utilis/utils'
 
 
 const useStyles = makeStyles(() =>
@@ -35,35 +36,17 @@ const useStyles = makeStyles(() =>
 );
 
 
-const MessageHeader = ({ openMenu, setOpenMenu }) => {
+
+
+
+const MessageHeader = ({ openMenu, setOpenMenu, chatContainer, sideContainer }) => {
     const classes = useStyles();
     const [open, setOpen] = useState(false)
     const [initWidth, setInitWidth] = useState(0)
 
 
-    const handleOpen = () => {
-        if (!open) {
-            setOpen(true);
-        } else {
-            setOpen(false);
-        }
-    }
-
-
-    const handleOpenMenu = () => {
-        
-        if (!openMenu) {
-            setOpenMenu(true)
-        } else {
-            setOpenMenu(false)
-        }
-      
-        handleResize();
-    }
-
     window.onresize = function(){
-        let box = document.getElementById('chat-grid-container');
-        let width1 = box.offsetWidth;
+        let width1 = chatContainer.current.offsetWidth;
         setInitWidth(width1)
         if(width1 !== initWidth && openMenu === true){
             document.documentElement.style.setProperty('--msg-width', `${width1}px`)
@@ -71,10 +54,8 @@ const MessageHeader = ({ openMenu, setOpenMenu }) => {
     }
     
     const handleResize = () => {
-        let box = document.getElementById('chat-grid-container');
-        let box1 = document.getElementById('side-container');
-        let width1 = box.offsetWidth;
-        let width2 = box1.offsetWidth;
+        let width1 = chatContainer.current.offsetWidth;
+        let width2 = sideContainer.current.offsetWidth;
         openMenu? document.documentElement.style.setProperty('--msg-width', '100%') : 
         document.documentElement.style.setProperty('--msg-width', `${width1 - width2}px`)
     }
@@ -89,7 +70,8 @@ const MessageHeader = ({ openMenu, setOpenMenu }) => {
                     <Divider orientation="vertical" flexItem variant="middle" />
                     <ButtonBase>
                         <Tooltip
-                            onClick={handleOpen}
+                            data-testid="handleOpen"
+                            onClick={() => handleOpen(open, setOpen)}
                             open={open}
                             title="Add"
                             color="inherit"
@@ -105,7 +87,10 @@ const MessageHeader = ({ openMenu, setOpenMenu }) => {
                         <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
                     </AvatarGroup>
 
-                    <IconButton onClick={handleOpenMenu} color="inherit">
+                    <IconButton data-testid="handleMenu" onClick={() => {
+                        handleOpen(openMenu, setOpenMenu)
+                        handleResize()
+                    }} color="inherit">
                         <MenuOpenIcon className={openMenu ? classes.active : undefined} />
                     </IconButton>
                 </Toolbar>

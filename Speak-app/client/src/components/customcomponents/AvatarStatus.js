@@ -50,7 +50,9 @@ const AvatarStatus = ({src, online}) => {
                 }}
                 variant={online ? "dot" : "standard"}
             >
-                <Avatar alt="avatar" src={src} />
+              
+                <Avatar alt="avatar" src={src} label="avatar"/>
+
             </StyledBadge>
         </div>
     );

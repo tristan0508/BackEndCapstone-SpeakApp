@@ -1,5 +1,4 @@
-import React, { useContext, useState} from 'react';
-import { UserContext } from '../providers/UserProvider';
+import React, { useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,8 +13,10 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { loginTheme } from '../customtheme/MaterialTheme'
-import { history } from '../index'
-import { ChatContext } from '../providers/ChatProvider';
+import { useHistory } from 'react-router-dom';
+
+
+
 
 const Copyright = () => {
   return (
@@ -58,26 +59,25 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const LoginPage = () => {
+
+
+export const LoginPage = ({login}) => {
   const classes = useStyles();
   const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const { login, setIsRegister } = useContext(UserContext);
-  const { GetUserChat } = useContext(ChatContext)
+  const [password, setPassword] = useState("");
+  const history = useHistory()
+
 
   const handleLogin = () => {
-    login(email, password)
-      .then(() => history.push("/dashboard"))
-      .then(() => GetUserChat)
-      .catch(() => alert("Invalid email or password"))
+      login(email, password)
   }
 
   const handleRegisterPush = () => {
-    setIsRegister(true)
     history.push("/register")
   }
 
   return (
+    <div>
     <ThemeProvider theme={loginTheme}>
         <Container component="main" maxWidth="xs">
         <CssBaseline />
@@ -91,7 +91,7 @@ const LoginPage = () => {
             <Typography component="h1" variant="h5">
             Sign in
             </Typography>
-            <form className={classes.form} noValidate>
+            <form id="loginForm" className={classes.form} noValidate>
             <TextField
                 InputLabelProps={{
                     classes: {
@@ -103,6 +103,7 @@ const LoginPage = () => {
                     notchedOutline: classes.notchedOutline
                     }
                 }}
+                data-testid="email"
                 variant="outlined"
                 margin="normal"
                 required
@@ -111,6 +112,7 @@ const LoginPage = () => {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                type="text"
                 autoFocus
                 value={email}
                 onChange={(e) => setEmail(e.currentTarget.value)}
@@ -126,6 +128,7 @@ const LoginPage = () => {
                     notchedOutline: classes.notchedOutline
                     }
                 }}
+                data-testid="password"
                 color="secondary"
                 variant="outlined"
                 margin="normal"
@@ -144,7 +147,9 @@ const LoginPage = () => {
                 label="Remember me"
             />
             <Button
+                data-testid="signIn"
                 onClick={handleLogin}
+                id='signIn'
                 fullWidth
                 variant="contained"
                 color="primary"
@@ -171,6 +176,6 @@ const LoginPage = () => {
         </Box>
         </Container>
     </ThemeProvider>
+    </div>
   );
 }
-export default LoginPage;

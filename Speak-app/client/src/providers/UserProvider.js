@@ -1,10 +1,11 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState } from "react";
 import firebase from "firebase/app";
 import "firebase/auth";
 import { history } from "../index"
+import { UserContext } from './ContextProvider';
 
 
-export const UserContext = createContext();
+
 
 export function UserProvider(props) {
     const apiUrl = "/api/user";
@@ -16,14 +17,10 @@ export function UserProvider(props) {
     const firebaseId = localStorage.getItem("firebaseId");
     const [isRegister, setIsRegister] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(user != null);
-    const [isFirebaseReady, setIsFirebaseReady] = useState(false);
     const [token, setToken] = useState(userToken ? userToken : "");
 
-    useEffect(() => {
-        firebase.auth().onAuthStateChanged((u) => {
-            setIsFirebaseReady(true);
-        });
-    }, []);
+    
+
 
     const login = (email, pw) => {
         return firebase.auth().signInWithEmailAndPassword(email, pw)
@@ -32,7 +29,7 @@ export function UserProvider(props) {
             localStorage.setItem("user", JSON.stringify(user));
             localStorage.setItem("userImage", user.image !== null ? user.image : "");
             localStorage.setItem("userId", user.id);
-            localStorage.setItem("displayName", user.displayName);
+            localStorage.setItem("displayName", `${user.firstName} ${user.lastName}`);
             localStorage.setItem("firebaseId", user.firebaseUserId);
             setIsLoggedIn(true);
         })
@@ -88,9 +85,10 @@ export function UserProvider(props) {
     };
 
     return (
-        <UserContext.Provider value={{ isLoggedIn, isFirebaseReady, token, setIsLoggedIn, login, logout, register, getToken, setIsRegister, userId, displayName,
+        <UserContext.Provider value={{ isLoggedIn, token, setIsLoggedIn, login, logout, register, getToken, setIsRegister, userId, displayName,
         userImage, firebaseId }}>
         {props.children}
         </UserContext.Provider>
+
     );
 }

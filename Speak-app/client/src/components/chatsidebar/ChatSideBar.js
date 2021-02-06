@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import { ChatContext } from '../../providers/ChatProvider';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -7,11 +6,10 @@ import { Button, Container, ThemeProvider } from '@material-ui/core';
 import { headerTheme } from '../../customtheme/MaterialTheme';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
-import AvatarStatus from '../customcomponents/AvartarStatus';
+import AvatarStatus from '../customcomponents/AvatarStatus';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import { history } from '../..';
-import { ChatHubContext } from '../../providers/ChatHubProvider';
-import { UserContext } from '../../providers/UserProvider';
+import { UserContext, ChatHubContext, ChatContext } from '../../providers/ContextProvider';
 
 
 const useStyles = makeStyles(() => ({
@@ -29,10 +27,11 @@ const useStyles = makeStyles(() => ({
 const ChatSideBar = () => {
     const classes = useStyles();
     const { chatList, openModal, setOpenModal, GetMessages } = useContext(ChatContext);
-    const { setCurrentChatParam } = useContext(ChatHubContext);
+    const { setCurrentChatParam, setChatType } = useContext(ChatHubContext);
     const { displayName } = useContext(UserContext);
 
-    const handleModal = () => {
+    const handleDirectModal = (e) => {
+      setChatType(e)
       if(openModal === false){
         setOpenModal(true)
       } else {
@@ -53,7 +52,7 @@ const ChatSideBar = () => {
           <List component="nav" aria-label="main mailbox folders">
             <Container>
                 <h4>Channels</h4>
-                <Button variant="outlined" color="secondary">
+                <Button variant="outlined" color="secondary" onClick={() => setChatType("Channel")}>
                 Add Channel
                 </Button>
             </Container>
@@ -75,7 +74,10 @@ const ChatSideBar = () => {
             <Container>
                 <h4>Direct Messages</h4>
                
-                <Button variant="outlined" color="secondary" onClick={handleModal}>
+                <Button variant="outlined" color="secondary" onClick={() => {
+                  handleDirectModal()
+                  setChatType("Direct Message")
+                }}>
                 New Direct Message
                 </Button>
             </Container>

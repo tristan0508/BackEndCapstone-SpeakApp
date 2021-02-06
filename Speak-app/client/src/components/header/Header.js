@@ -4,8 +4,8 @@ import { AppBar, Toolbar, Typography, Button, IconButton, Avatar } from '@materi
 import { Menu } from '@material-ui/icons';
 import { headerTheme } from '../../customtheme/MaterialTheme';
 import imageIcon from '../../images/messageicon.png'
-import { UserContext } from '../../providers/UserProvider';
-import { StyledBadge } from '../customcomponents/AvartarStatus';
+import { StyledBadge } from '../customcomponents/AvatarStatus';
+import { UserContext } from '../../providers/ContextProvider';
 
 const useStyles = makeStyles((theme) =>
     createStyles({

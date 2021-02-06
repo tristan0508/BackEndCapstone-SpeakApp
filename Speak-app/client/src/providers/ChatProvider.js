@@ -1,9 +1,8 @@
-import React, { useState, createContext, useContext } from 'react';
-import { ChatHubContext } from './ChatHubProvider';
-import { UserContext } from './UserProvider';
+import React, { useState, useContext } from 'react';
+import { ChatContext, UserContext, ChatHubContext } from './ContextProvider';
 
 
-export const ChatContext = createContext();
+
 
 export const ChatProvider = (props) => {
     const token = localStorage.getItem("token");
@@ -47,9 +46,21 @@ export const ChatProvider = (props) => {
         .then(res => setChatHub(res))
     }
 
+    const AddChat = (chat) => {
+        fetch('http://localhost:5000/api/chat', {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(chat)
+        }).then(() => GetUserChat())
+    }
+
+
     return (
        <ChatContext.Provider value={{ GetUserChat, chatList, openModal, setOpenModal, GetAllUsers,
-       allUsers, userOnline, setUserOnline, GetMessages}}>
+       allUsers, userOnline, setUserOnline, GetMessages, AddChat}}>
            {props.children}
        </ChatContext.Provider>
     )

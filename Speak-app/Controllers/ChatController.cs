@@ -26,12 +26,14 @@ namespace Speak_app.Controllers
 
         private readonly UserRepository _userRepository;
         private readonly ChatRepository _chatRepository;
+        private readonly ApplicationDbContext _context;
 
 
         public ChatController(ApplicationDbContext context)
         {
             _chatRepository = new ChatRepository(context);
             _userRepository = new UserRepository(context);
+            _context = context;
 
         }
 
@@ -49,10 +51,18 @@ namespace Speak_app.Controllers
             return Ok(chat);
         }
 
-        [HttpPost("{chatId}")]
+        [HttpDelete("{chatId}")]
         public IActionResult  DeleteChat(int chatId)
         {
-            _chatRepository.removeChat(chatId);
+            var user = GetCurrentUserProfile();
+            _chatRepository.removeChat(chatId, user);
+            return Ok();
+        }
+
+        [HttpPost]
+        public IActionResult AddChat(Chat chat)
+        {
+            _chatRepository.addChat(chat);
             return Ok();
         }
     }

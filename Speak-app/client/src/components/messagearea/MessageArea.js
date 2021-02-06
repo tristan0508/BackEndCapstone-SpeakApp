@@ -1,5 +1,4 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { ChatHubContext } from '../../providers/ChatHubProvider'
 import {
     makeStyles,
     TextField,
@@ -13,7 +12,7 @@ import SendIcon from '@material-ui/icons/Send';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import InsertEmoticonIcon from '@material-ui/icons/InsertEmoticon'
 import { headerTheme } from '../../customtheme/MaterialTheme';
-import { ChatContext } from '../../providers/ChatProvider';
+import { ChatContext, ChatHubContext } from '../../providers/ContextProvider';
 
 const useStyles = makeStyles(() =>
     createStyles({

@@ -1,18 +1,15 @@
-import React, { useState, createContext, useRef, useContext } from "react";
+import React, { useState, useRef, useContext } from "react";
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
-import { UserContext } from './UserProvider';
+import { ChatHubContext, UserContext } from './ContextProvider';
 
 
-export const ChatHubContext = createContext();
 
 export const ChatHubProvider = (props) => {
 
     const { token, displayName, userImage } = useContext(UserContext);
     const [chatHub, setChatHub] = useState([]);
     const [hubConnection, setHubConnection] = useState();
-    const [receiverId, setReceiverId] = useState(0);
-    const [receiverFirebaseId, setReceiverFirebaseId] = useState("");
-    const [ receiverName, setReceiverName] = useState("");
+    const [chatType, setChatType] = useState("");
     const [currentChatParam, setCurrentChatParam] = useState(0)
     const currentChat = useRef(null);
 
@@ -75,7 +72,7 @@ export const ChatHubProvider = (props) => {
 
     return (
        <ChatHubContext.Provider value={{ HubConnection, hubConnection, addMessage, AddChannel, chatHub,
-        setReceiverId, setReceiverFirebaseId, setReceiverName, setCurrentChatParam, setChatHub, currentChatParam}}>
+      setCurrentChatParam, setChatHub, currentChatParam, chatType, setChatType}}>
            {props.children}
        </ChatHubContext.Provider>
     )

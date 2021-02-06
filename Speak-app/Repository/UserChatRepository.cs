@@ -27,5 +27,19 @@ namespace Speak_app.Repository
             var userChats = _context.UserChat.Where(uc => uc.ChatId == chatId && uc.UserId != userId ).ToList();
             return userChats;
         }
+
+        public void AddUserChat(UserChat userChat)
+        {
+            _context.Add(userChat);
+            _context.SaveChanges();
+        }
+
+        public void Delete(int chatId, int userId)
+        {
+            var userChat = _context.UserChat
+                .FirstOrDefault(uc => uc.ChatId == chatId && uc.UserId == userId);
+            _context.Remove(userChat);
+            _context.SaveChanges();
+        }
     }
 }
