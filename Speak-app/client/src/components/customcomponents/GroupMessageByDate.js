@@ -1,12 +1,13 @@
 const groupMessagesByDate = (messageList) => {
     const sortedMessages = messageList.sort(
-        (a, b) => Date.parse(a.date) - Date.parse(b.date)
+        (a, b) => Date.parse(a.dateCreated) - Date.parse(b.dateCreated)
     )
     return Object.entries(sortedMessages.reduce((messages, message) => {
-        if(!message.date || !message.body){
+        if(!message.dateCreated || !message.body){
             return false
         }
-        const date = message.date;
+        let date = message.dateCreated;
+        date = new Date(date).toLocaleString().split(',')[0]
         messages[date] = messages[date] ? [...messages[date], message] : [message];
         return messages
     }, {}))
