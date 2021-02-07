@@ -58,8 +58,8 @@ const MessageLayout = () => {
     return (
         <List id='layout' className={classes.root}>
            {groupedChat.map(([date, messages]) => (
-               <Fragment>
-                    <Divider style={{ backgroundColor: "white"}}/>
+               <Fragment key={date}>
+                    <Divider style={{ backgroundColor: "white"}} key={date}/>
                     <h4 style={{ textAlign: "center"}}>{date === todaysDate ? "Today" : date === yesterdaysDate ? "Yesterday" : date}</h4>
                    {messages.map(msg => (
                         <ListItem key={msg.id} id={msg.chatId} alignItems="flex-start">

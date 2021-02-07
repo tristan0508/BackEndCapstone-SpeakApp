@@ -62,7 +62,8 @@ namespace Speak_app.Controllers
         [HttpPost]
         public IActionResult AddChat(Chat chat)
         {
-            _chatRepository.addChat(chat);
+            var userId = GetCurrentUserProfile().Id;
+            _chatRepository.addChat(chat, userId);
             return Ok();
         }
     }

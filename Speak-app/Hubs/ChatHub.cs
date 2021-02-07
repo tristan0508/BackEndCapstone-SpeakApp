@@ -71,21 +71,15 @@ namespace Speak_app.Hubs
         }
 
 
-        public async Task AddToDirectChat(string id)
+        public async Task AddToDirectChat(Chat chat)
         {
-            await Groups.AddToGroupAsync(Context.ConnectionId, id);
+            var userId = GetUser().Id;
 
-            var chat = new Chat()
-            {
-                Name = id,
-                Type = "Direct Message"
-            };
+            _chatRepository.addChat(chat, userId);
 
-            _chatRepository.addChat(chat);
+            string chatId = chat.Id.ToString();
 
-            var username = GetUser();
-
-            await Clients.Group(id).SendAsync("Send", $"{username.DisplayName} has joined the group");
+            await Groups.AddToGroupAsync(Context.ConnectionId, chatId);    
         }
 
         public async Task RemoveFromGroupChat(string groupName)

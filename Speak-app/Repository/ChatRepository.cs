@@ -56,7 +56,7 @@ namespace SpeakApp.Repository
             return chat;
         }
 
-        public Chat addChat(Chat chat)
+        public Chat addChat(Chat chat, int userId)
         {
             var newChat = new Chat()
             {
@@ -74,7 +74,7 @@ namespace SpeakApp.Repository
             var userChat = new UserChat()
             {
                 ChatId = newChat.Id,
-                UserId = 2,
+                UserId = userId,
             };
 
             _userChatRepository.AddUserChat(userChat);

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -29,6 +29,11 @@ const ChatSideBar = () => {
     const { chatList, openModal, setOpenModal, GetMessages } = useContext(ChatContext);
     const { setCurrentChatParam, setChatType } = useContext(ChatHubContext);
     const { displayName } = useContext(UserContext);
+
+
+    useEffect(() => {
+
+    }, [chatList])
 
     const handleDirectModal = (e) => {
       setChatType(e)

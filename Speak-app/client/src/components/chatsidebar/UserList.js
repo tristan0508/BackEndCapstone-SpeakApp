@@ -1,14 +1,15 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useCallback } from 'react';
 import { Container, ListItem } from '@material-ui/core';
 import AvatarStatus from '../customcomponents/AvatarStatus';
-import { UserContext, ChatContext } from '../../providers/ContextProvider';
+import { UserContext, ChatContext, ChatHubContext } from '../../providers/ContextProvider';
 
 
 
 
 export const UserList = () => {
-    const { GetAllUsers, allUsers, userOnline, AddChat, setOpenModal } = useContext(ChatContext)
+    const { GetAllUsers, allUsers, userOnline, AddChat, setOpenModal, GetUserChat } = useContext(ChatContext)
     const { displayName, userImage } = useContext(UserContext);
+    const { DirectChat } = useContext(ChatHubContext)
 
     useEffect(() => {
         GetAllUsers()
@@ -26,7 +27,8 @@ export const UserList = () => {
             receiverImage: image ? image : null
         }
 
-        AddChat(Chat)
+        DirectChat(Chat)
+        .then(() => GetUserChat())
         setOpenModal(false)
     }
 
