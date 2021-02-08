@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useCallback } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Container, ListItem } from '@material-ui/core';
 import AvatarStatus from '../customcomponents/AvatarStatus';
 import { UserContext, ChatContext, ChatHubContext } from '../../providers/ContextProvider';
@@ -7,7 +7,7 @@ import { UserContext, ChatContext, ChatHubContext } from '../../providers/Contex
 
 
 export const UserList = () => {
-    const { GetAllUsers, allUsers, userOnline, AddChat, setOpenModal, GetUserChat } = useContext(ChatContext)
+    const { GetAllUsers, allUsers, userOnline, setOpenModal, GetUserChat } = useContext(ChatContext)
     const { displayName, userImage } = useContext(UserContext);
     const { DirectChat } = useContext(ChatHubContext)
 
@@ -15,16 +15,14 @@ export const UserList = () => {
         GetAllUsers()
     }, [])
 
-    const handleReceiver = (first, last, image) => {
-     
-
+    const handleReceiver = (first, last, image, email) => {
         const Chat = {
-            name: displayName,
             type: "Direct Message",
             sender: displayName,
             receiver: `${first} ${last}`,
             senderImage: userImage,
-            receiverImage: image ? image : null
+            receiverImage: image ? image : null,
+            receiverEmail: email
         }
 
         DirectChat(Chat)
@@ -44,7 +42,8 @@ export const UserList = () => {
                                     handleReceiver(
                                         u.firstName,
                                         u.lastName,
-                                        u.image
+                                        u.image,
+                                        u.email
                                     )} 
                                  className="userListBtn">
                                     {u.firstName} {u.lastName} # {u.displayName}

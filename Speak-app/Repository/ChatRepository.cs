@@ -56,28 +56,51 @@ namespace SpeakApp.Repository
             return chat;
         }
 
-        public Chat addChat(Chat chat, int userId)
+        public Chat addChat(Chat chat, int userId, string email)
         {
+            var exist = _context.Chat.FirstOrDefault(c =>
+            c.SenderEmail == email && chat.ReceiverEmail == c.ReceiverEmail || c.ReceiverEmail == email && chat.ReceiverEmail == c.SenderEmail);
+
+            if (exist != null)
+            {
+                if (exist.SenderEmail != email)
+                {
+                   var ucExist = _context.UserChat.FirstOrDefault(uc => uc.UserId == userId && uc.ChatId == exist.Id);
+                    if(ucExist == null)
+                    {
+                        var userChat = new UserChat()
+                        {
+                            ChatId = exist.Id,
+                            UserId = userId,
+                        };
+                        _userChatRepository.AddUserChat(userChat);
+                    }
+                }
+                    throw new Exception();  
+            }
+
             var newChat = new Chat()
             {
-                Name = chat.Name,
+                Name = chat.Sender,
                 Type = chat.Type,
                 Sender = chat.Sender,
                 Receiver = chat.Receiver,
                 SenderImage = chat.SenderImage,
-                ReceiverImage = chat.ReceiverImage
+                ReceiverImage = chat.ReceiverImage,
+                SenderEmail = email,
+                ReceiverEmail = chat.ReceiverEmail
             };
             _context.Add(newChat);
             _context.SaveChanges();
 
 
-            var userChat = new UserChat()
+            var newUserChat = new UserChat()
             {
                 ChatId = newChat.Id,
                 UserId = userId,
             };
 
-            _userChatRepository.AddUserChat(userChat);
+            _userChatRepository.AddUserChat(newUserChat);
             var chatObj = GetChatById(newChat.Id);
             return chatObj;
         }

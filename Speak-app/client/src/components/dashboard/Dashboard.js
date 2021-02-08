@@ -12,7 +12,6 @@ const Dashboard = () => {
     const { HubConnection } = useContext(ChatHubContext);
     const { GetUserChat } = useContext(ChatContext)
 
-   
     const scrollToEnd = () => {
         let chatElement = document.getElementById('chat');
         if (!chatElement) {
@@ -26,6 +25,8 @@ const Dashboard = () => {
         HubConnection()
         GetUserChat()
     }, [])
+
+ 
 
     const chatContainer = useRef();
     const sideContainer = useRef();

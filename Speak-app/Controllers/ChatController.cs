@@ -58,13 +58,5 @@ namespace Speak_app.Controllers
             _chatRepository.removeChat(chatId, user);
             return Ok();
         }
-
-        [HttpPost]
-        public IActionResult AddChat(Chat chat)
-        {
-            var userId = GetCurrentUserProfile().Id;
-            _chatRepository.addChat(chat, userId);
-            return Ok();
-        }
     }
 }

@@ -5,12 +5,12 @@ import { ChatHubContext, UserContext } from './ContextProvider';
 
 
 export const ChatHubProvider = (props) => {
-
+    const paramId = localStorage.getItem("params")
     const { token, displayName, userImage } = useContext(UserContext);
     const [chatHub, setChatHub] = useState([]);
     const [hubConnection, setHubConnection] = useState();
     const [chatType, setChatType] = useState("");
-    const [currentChatParam, setCurrentChatParam] = useState(0)
+    const [currentChatParam, setCurrentChatParam] = useState(paramId ? paramId : 0)
     const currentChat = useRef(null);
 
     currentChat.current = chatHub;
