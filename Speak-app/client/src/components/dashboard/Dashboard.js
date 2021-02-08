@@ -6,6 +6,7 @@ import MessageLayout from '../messagearea/MessageLayout';
 import ChatSideBar from '../chatsidebar/ChatSideBar';
 import { ChatDirectMessage } from '../chatsidebar/ChatDirectMessage';
 import { ChatContext, ChatHubContext } from '../../providers/ContextProvider';
+import { ChannelMessage } from '../chatsidebar/ChannelMessage';
 
 const Dashboard = () => {
     const [openMenu, setOpenMenu] = useState(false)
@@ -49,6 +50,7 @@ const Dashboard = () => {
 
                 <Grid id="chat-grid-container" ref={chatContainer} container item className="chat-grid-container" alignItems="flex-start" >
                     <Grid id="chat" className="messages" container item xs={8}>
+                        <ChannelMessage />
                         <ChatDirectMessage />
                         <MessageLayout />
                     </Grid>

@@ -84,9 +84,7 @@ const MessageLayout = () => {
                         </ListItem>
                    ))}
                </Fragment>
-              
            ))}
-
         </List>
     );
 }

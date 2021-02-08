@@ -75,7 +75,16 @@ namespace Speak_app.Hubs
         {
             var user = GetUser();
 
-            _chatRepository.addChat(chat, user.Id, user.Email);
+            if(chat.Type == "Direct Message")
+            {
+                _chatRepository.addChat(chat, user.Id, user.Email);
+            }
+            if(chat.Type == "Channel")
+            {
+                _chatRepository.AddChannel(chat, user.Id, user.Email);
+            }
+
+
 
             string chatId = chat.Id.ToString();
 

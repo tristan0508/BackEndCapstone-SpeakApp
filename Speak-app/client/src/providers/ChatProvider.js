@@ -7,11 +7,12 @@ import { ChatContext, UserContext, ChatHubContext } from './ContextProvider';
 export const ChatProvider = (props) => {
     const token = localStorage.getItem("token");
     const [chatList, setChatList] = useState([]);
-    const [openModal, setOpenModal] = useState(false)
-    const [allUsers, setAllUsers] = useState([])
-    const [userOnline, setUserOnline] = useState(false)
-    const { userId } = useContext(UserContext)
-    const { setChatHub } = useContext(ChatHubContext)
+    const [openModal, setOpenModal] = useState(false);
+    const [openChannelModal, setOpenChannelModal] = useState(false);
+    const [allUsers, setAllUsers] = useState([]);
+    const [userOnline, setUserOnline] = useState(false);
+    const { userId } = useContext(UserContext);
+    const { setChatHub } = useContext(ChatHubContext);
 
     const GetUserChat = () => {
             fetch(`http://localhost:5000/api/chat/${userId}`, {
@@ -60,7 +61,7 @@ export const ChatProvider = (props) => {
 
     return (
        <ChatContext.Provider value={{ GetUserChat, chatList, openModal, setOpenModal, GetAllUsers,
-       allUsers, userOnline, setUserOnline, GetMessages, AddChat}}>
+       allUsers, userOnline, setUserOnline, GetMessages, AddChat, openChannelModal, setOpenChannelModal}}>
            {props.children}
        </ChatContext.Provider>
     )

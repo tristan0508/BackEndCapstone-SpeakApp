@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -9,6 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import AvatarStatus from '../customcomponents/AvatarStatus';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
+import SearchIcon from '@material-ui/icons/Search';
 import { UserContext, ChatHubContext, ChatContext } from '../../providers/ContextProvider';
 
 
@@ -26,16 +27,22 @@ const useStyles = makeStyles(() => ({
 
 const ChatSideBar = () => {
     const classes = useStyles();
-    const { chatList, openModal, setOpenModal, GetMessages } = useContext(ChatContext);
-    const { setCurrentChatParam, setChatType } = useContext(ChatHubContext);
+    const { chatList, openModal, setOpenModal, GetMessages, openChannelModal, setOpenChannelModal } = useContext(ChatContext);
+    const { setCurrentChatParam } = useContext(ChatHubContext);
     const { displayName } = useContext(UserContext);
     const history = useHistory();
 
 
+    const handleChannelModal = (e) => {
+      if(openChannelModal === false){
+        setOpenChannelModal(true)
+      } else {
+        setOpenChannelModal(false)
+      }
+    }
 
 
     const handleDirectModal = (e) => {
-      setChatType(e)
       if(openModal === false){
         setOpenModal(true)
       } else {
@@ -55,8 +62,10 @@ const ChatSideBar = () => {
         <ThemeProvider theme={headerTheme}>
           <List component="nav" aria-label="main mailbox folders">
             <Container>
-                <h4>Channels</h4>
-                <Button variant="outlined" color="secondary" onClick={() => setChatType("Channel")}>
+                <h4 style={{ cursor: "pointer"}}>Channels <SearchIcon /></h4>
+                <Button variant="outlined" color="secondary" onClick={() => {
+                  handleChannelModal()
+                }}>
                 Add Channel
                 </Button>
             </Container>
@@ -80,7 +89,6 @@ const ChatSideBar = () => {
                
                 <Button variant="outlined" color="secondary" onClick={() => {
                   handleDirectModal()
-                  setChatType("Direct Message")
                 }}>
                 New Direct Message
                 </Button>

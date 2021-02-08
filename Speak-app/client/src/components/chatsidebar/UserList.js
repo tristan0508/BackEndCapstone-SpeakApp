@@ -9,7 +9,7 @@ import { UserContext, ChatContext, ChatHubContext } from '../../providers/Contex
 export const UserList = () => {
     const { GetAllUsers, allUsers, userOnline, setOpenModal, GetUserChat } = useContext(ChatContext)
     const { displayName, userImage } = useContext(UserContext);
-    const { DirectChat } = useContext(ChatHubContext)
+    const { AddChat } = useContext(ChatHubContext)
 
     useEffect(() => {
         GetAllUsers()
@@ -25,7 +25,7 @@ export const UserList = () => {
             receiverEmail: email
         }
 
-        DirectChat(Chat)
+        AddChat(Chat)
         .then(() => GetUserChat())
         setOpenModal(false)
     }

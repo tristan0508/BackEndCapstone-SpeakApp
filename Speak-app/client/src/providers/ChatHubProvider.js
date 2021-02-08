@@ -60,7 +60,7 @@ export const ChatHubProvider = (props) => {
         }
     }
 
-    const DirectChat = async (groupName) => {
+    const AddChat = async (groupName) => {
         try{
             await hubConnection.invoke("AddToDirectChat", groupName)
             console.log(groupName)
@@ -71,7 +71,7 @@ export const ChatHubProvider = (props) => {
 
 
     return (
-       <ChatHubContext.Provider value={{ HubConnection, hubConnection, addMessage, DirectChat, chatHub,
+       <ChatHubContext.Provider value={{ HubConnection, hubConnection, addMessage, AddChat, chatHub,
       setCurrentChatParam, setChatHub, currentChatParam, chatType, setChatType}}>
            {props.children}
        </ChatHubContext.Provider>
