@@ -15,5 +15,7 @@ namespace SpeakApp.Models
         public string Receiver { get; set; }
         public string SenderImage { get; set; }
         public string ReceiverImage { get; set; }
+        public string SenderEmail { get; set; }
+        public string ReceiverEmail { get; set; }
     }
 }

@@ -73,9 +73,9 @@ namespace Speak_app.Hubs
 
         public async Task AddToDirectChat(Chat chat)
         {
-            var userId = GetUser().Id;
+            var user = GetUser();
 
-            _chatRepository.addChat(chat, userId);
+            _chatRepository.addChat(chat, user.Id, user.Email);
 
             string chatId = chat.Id.ToString();
 

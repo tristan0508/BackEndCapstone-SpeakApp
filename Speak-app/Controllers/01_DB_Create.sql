@@ -38,9 +38,12 @@ CREATE TABLE [Chat] (
   [Id] integer IDENTITY(1, 1) PRIMARY KEY NOT NULL,
   [Name] nvarchar(255) NOT NULL,
   [Type] nvarchar(255) NOT NULL,
-  [Sender] nvarchar(255) NULL,
-  [Receiver] nvarchar(255) NULL,
-  [
+  [Sender] nvarchar(255) NOT NULL,
+  [Receiver] nvarchar(255) NOT NULL,
+  [SenderEmail] nvarchar(255) NOT NULL,
+  [ReceiverEmail] nvarchar(255) NOT NULL,
+  [SenderImage] nvarchar(255) NULL,
+  [ReceiverImage] nvarchar(255) NULL,
 )
 GO
 

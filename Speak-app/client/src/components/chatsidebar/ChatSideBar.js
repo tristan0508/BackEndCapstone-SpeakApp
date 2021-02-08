@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -8,7 +9,6 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
 import AvatarStatus from '../customcomponents/AvatarStatus';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
-import { history } from '../..';
 import { UserContext, ChatHubContext, ChatContext } from '../../providers/ContextProvider';
 
 
@@ -29,11 +29,10 @@ const ChatSideBar = () => {
     const { chatList, openModal, setOpenModal, GetMessages } = useContext(ChatContext);
     const { setCurrentChatParam, setChatType } = useContext(ChatHubContext);
     const { displayName } = useContext(UserContext);
+    const history = useHistory();
 
 
-    useEffect(() => {
 
-    }, [chatList])
 
     const handleDirectModal = (e) => {
       setChatType(e)
