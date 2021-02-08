@@ -28,14 +28,14 @@ namespace SpeakApp.Repository
         {
             List<int> chatId = new List<int>();
             var userChats = _userChatRepository.GetUserChatIds(userId);
-            foreach(var chat in userChats)
+            foreach (var chat in userChats)
             {
                 chatId.Add(chat.ChatId);
             }
 
-            
+
             List<Chat> chats = new List<Chat>();
-            foreach(var id in chatId)
+            foreach (var id in chatId)
             {
                 Chat chat = _context.Chat.FirstOrDefault(chat => chat.Id == id);
 
@@ -44,7 +44,7 @@ namespace SpeakApp.Repository
 
             return chats;
         }
-        
+
         public Chat GetChatById(int id)
         {
             var chat = _context.Chat.FirstOrDefault(chat => chat.Id == id);
@@ -65,8 +65,8 @@ namespace SpeakApp.Repository
             {
                 if (exist.SenderEmail != email)
                 {
-                   var ucExist = _context.UserChat.FirstOrDefault(uc => uc.UserId == userId && uc.ChatId == exist.Id);
-                    if(ucExist == null)
+                    var ucExist = _context.UserChat.FirstOrDefault(uc => uc.UserId == userId && uc.ChatId == exist.Id);
+                    if (ucExist == null)
                     {
                         var userChat = new UserChat()
                         {
@@ -76,7 +76,7 @@ namespace SpeakApp.Repository
                         _userChatRepository.AddUserChat(userChat);
                     }
                 }
-                    throw new Exception();  
+                throw new Exception();
             }
 
             var newChat = new Chat()
@@ -106,9 +106,9 @@ namespace SpeakApp.Repository
         }
 
         public void removeChat(int chatId, User user)
-        {   
+        {
             var messages = _messageRepository.ChatMessages(chatId);
-            foreach(Message message in messages)
+            foreach (Message message in messages)
             {
                 _context.Remove(message);
             };
