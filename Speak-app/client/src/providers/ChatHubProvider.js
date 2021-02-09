@@ -67,7 +67,7 @@ export const ChatHubProvider = (props) => {
         } catch (err) {
             console.log(err)
         }
-    }
+    };
 
 
     return (
