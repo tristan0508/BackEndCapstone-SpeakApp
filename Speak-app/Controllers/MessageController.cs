@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Speak_app.Hubs;
+using Speak_app.Models;
 using Speak_app.Repository;
 using SpeakApp.Data;
 using SpeakApp.Models;
@@ -43,15 +44,22 @@ namespace Speak_app.Controllers
             return Ok(messages);
         }
 
-        [HttpPost("{msgId}")]
+        [HttpDelete("{msgId}")]
         public IActionResult DeleteMessage(int msgId)
         {
             _messageRepository.RemoveMessage(msgId);
             return Ok();
         }
 
+        [HttpPatch("{msgId}")]
+        public IActionResult UpdateMessage(int msgId, Body body)
+        {
+            _messageRepository.UpdateMessage(msgId, body.body);
+            return Ok();
+        }
+
         [HttpGet("{chatId}")]
-        public IActionResult GetMessagesBuChatId(int chatId)
+        public IActionResult GetMessagesByChatId(int chatId)
         {
             var messages = _messageRepository.ChatMessages(chatId);
             return Ok(messages);

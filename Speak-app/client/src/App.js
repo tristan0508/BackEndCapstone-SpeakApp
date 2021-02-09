@@ -5,7 +5,6 @@ import Dashboard from './components/dashboard/Dashboard';
 import RegisterPage from './components/RegisterPage';
 import { LoginPage } from './components/LoginPage';
 import { UserContext } from './providers/ContextProvider';
-import { useParams } from "react-router";
 
 
 

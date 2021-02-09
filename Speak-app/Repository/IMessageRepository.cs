@@ -6,5 +6,6 @@ namespace Speak_app.Repository
     public interface IMessageRepository
     {
         List<Message> GetMessagesByUserId(int userId);
+        void UpdateMessage(int msgId, string body);
     }
 }

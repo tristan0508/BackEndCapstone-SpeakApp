@@ -15,7 +15,6 @@ export function UserProvider(props) {
     const displayName = localStorage.getItem("displayName");
     const userImage = localStorage.getItem("userImage");
     const firebaseId = localStorage.getItem("firebaseId");
-    const [isRegister, setIsRegister] = useState(false);
     const [isLoggedIn, setIsLoggedIn] = useState(user != null);
     const [token, setToken] = useState(userToken ? userToken : "");
 
@@ -85,7 +84,7 @@ export function UserProvider(props) {
     };
 
     return (
-        <UserContext.Provider value={{ isLoggedIn, token, setIsLoggedIn, login, logout, register, getToken, setIsRegister, userId, displayName,
+        <UserContext.Provider value={{ isLoggedIn, token, setIsLoggedIn, login, logout, register, getToken, userId, displayName,
         userImage, firebaseId }}>
         {props.children}
         </UserContext.Provider>

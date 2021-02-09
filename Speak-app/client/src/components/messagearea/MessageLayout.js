@@ -1,19 +1,24 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { createStyles, makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
+import CreateIcon from '@material-ui/icons/Create';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
-import { ChatHubContext } from '../../providers/ContextProvider';
+import { ChatContext, ChatHubContext } from '../../providers/ContextProvider';
 import groupMessagesByDate from '../customcomponents/GroupMessageByDate';
 import { Fragment } from 'react';
 import { Divider } from '@material-ui/core';
+import { headerTheme } from '../../customtheme/MaterialTheme';
+import { EditMessage } from '../customcomponents/EditMessage';
 
 
 
-const useStyles = makeStyles(() =>
+
+const useStyles = makeStyles((theme) =>
     createStyles({
         root: {
             backgroundColor: 'transparent',
@@ -30,10 +35,13 @@ const useStyles = makeStyles(() =>
 
 const MessageLayout = () => {
     const classes = useStyles();
-    const { chatHub, currentChatParam } = useContext(ChatHubContext)
-    const [groupedChat, setGroupedChat] = useState([])
-    const [todaysDate, setTodaysDate] = useState()
-    const [yesterdaysDate, setYesterdaysDate] = useState([])
+    const userId = localStorage.getItem("userId");
+    const { chatHub, currentChatParam } = useContext(ChatHubContext);
+    const { DeleteMessage } = useContext(ChatContext);
+    const [groupedChat, setGroupedChat] = useState([]);
+    const [todaysDate, setTodaysDate] = useState();
+    const [yesterdaysDate, setYesterdaysDate] = useState([]);
+    const [editMsg, setEditMsg] = useState("");
 
     const toTimeString = (time) => {
       let newTime = new Date(time).toLocaleTimeString()
@@ -55,7 +63,12 @@ const MessageLayout = () => {
         setYesterdaysDate(formatYesterday)
     }, [chatHub, currentChatParam])
 
+    const deleteMessage = (msgId, chatId) => {
+        DeleteMessage(msgId, chatId)
+    }
+
     return (
+    <ThemeProvider theme={headerTheme}>
         <List id='layout' className={classes.root}>
            {groupedChat.map(([date, messages]) => (
                <Fragment key={date}>
@@ -76,16 +89,29 @@ const MessageLayout = () => {
                                             variant="body2"
                                             className={classes.inline}
                                             >
-                                            {msg.body}
+                                            {msg.userId === parseInt(userId) && msg.id === editMsg ? 
+                                            <EditMessage msg={msg.body}
+                                             setEditMsg={setEditMsg}
+                                             msgId={msg.id}
+                                             chatId={msg.chatId}/> : msg.body}
                                         </Typography>
                                     </React.Fragment>
                                 }
                                 />
+                                   {msg.userId === parseInt(userId) ? 
+                                   <div className="editDeleteBtn">
+                                        <DeleteOutlineIcon id={msg.id} onClick={() => deleteMessage(msg.id, msg.chatId)} style={{ cursor: "pointer"}} fontSize="small"/>
+                                        <CreateIcon onClick={() => setEditMsg(msg.id)} id={msg.id} style={{ cursor: "pointer"}} fontSize="small"/>
+                                    </div> 
+                                : null}
+
+
                         </ListItem>
                    ))}
                </Fragment>
            ))}
         </List>
+    </ThemeProvider>
     );
 }
 

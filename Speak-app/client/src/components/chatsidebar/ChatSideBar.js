@@ -11,6 +11,7 @@ import AvatarStatus from '../customcomponents/AvatarStatus';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import SearchIcon from '@material-ui/icons/Search';
 import { UserContext, ChatHubContext, ChatContext } from '../../providers/ContextProvider';
+import { SnackBar } from '../customcomponents/SnackBar';
 
 
 const useStyles = makeStyles(() => ({
@@ -72,7 +73,7 @@ const ChatSideBar = () => {
             <Container>
                 {  chatList.map(c => {
                         if(c.type === 'Channel'){
-                        return  <ListItem button key={c.id}>
+                        return  <ListItem button key={c.id} onClick={() => handleChatRoute(c.id)}>
                                     <PeopleAltIcon />
                                     <ListItemText className="chatListText" key={c.id} primary={c.name} />
                                 </ListItem>
@@ -110,6 +111,7 @@ const ChatSideBar = () => {
                         return null;
                     })
                 }
+                <SnackBar />
             </Container>
           </List>
         </ThemeProvider>

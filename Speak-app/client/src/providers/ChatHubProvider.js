@@ -11,6 +11,7 @@ export const ChatHubProvider = (props) => {
     const [hubConnection, setHubConnection] = useState();
     const [chatType, setChatType] = useState("");
     const [currentChatParam, setCurrentChatParam] = useState(paramId ? paramId : 0)
+    const [openSnack, setOpenSnack] = useState(false);
     const currentChat = useRef(null);
 
     currentChat.current = chatHub;
@@ -65,14 +66,14 @@ export const ChatHubProvider = (props) => {
             await hubConnection.invoke("AddToDirectChat", groupName)
             console.log(groupName)
         } catch (err) {
-            console.log(err)
+            setOpenSnack(true)
         }
     }
 
 
     return (
        <ChatHubContext.Provider value={{ HubConnection, hubConnection, addMessage, AddChat, chatHub,
-      setCurrentChatParam, setChatHub, currentChatParam, chatType, setChatType}}>
+      setCurrentChatParam, setChatHub, currentChatParam, chatType, setChatType, openSnack, setOpenSnack}}>
            {props.children}
        </ChatHubContext.Provider>
     )

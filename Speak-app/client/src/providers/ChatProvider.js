@@ -47,6 +47,15 @@ export const ChatProvider = (props) => {
         .then(res => setChatHub(res))
     }
 
+    const DeleteMessage = (msgId, chatId) => {
+        fetch(`http://localhost:5000/api/message/${msgId}`, {
+            method: 'DELETE',
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(() => GetMessages(chatId))
+    }
+
     const AddChat = (chat) => {
         fetch('http://localhost:5000/api/chat', {
             method: "POST",
@@ -58,10 +67,23 @@ export const ChatProvider = (props) => {
         }).then(() => GetUserChat())
     }
 
+    const UpdateMessage = (msgId, body, chatId) => {
+        const data = { body: body }
+        fetch(`http://localhost:5000/api/message/${msgId}`, {
+            method: "PATCH",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        }).then(() => GetMessages(chatId))
+    }
+
 
     return (
        <ChatContext.Provider value={{ GetUserChat, chatList, openModal, setOpenModal, GetAllUsers,
-       allUsers, userOnline, setUserOnline, GetMessages, AddChat, openChannelModal, setOpenChannelModal}}>
+       allUsers, userOnline, setUserOnline, GetMessages, AddChat, openChannelModal, setOpenChannelModal,
+       DeleteMessage, UpdateMessage}}>
            {props.children}
        </ChatContext.Provider>
     )

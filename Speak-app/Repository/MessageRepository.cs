@@ -1,4 +1,5 @@
-﻿using SpeakApp.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using SpeakApp.Data;
 using SpeakApp.Models;
 using System;
 using System.Collections.Generic;
@@ -29,6 +30,15 @@ namespace Speak_app.Repository
             Message msg = message;
 
             return msg;
+        }
+
+        public void UpdateMessage(int msgId, string body)
+        {
+            var msg = _context.Message.FirstOrDefault(m => m.Id == msgId);
+            msg.Body = body;
+            _context.Entry(msg).State = EntityState.Modified;
+            _context.SaveChanges();
+
         }
 
         public void RemoveMessage(int msgId)
