@@ -11,6 +11,8 @@ export const ChatProvider = (props) => {
     const [openChannelModal, setOpenChannelModal] = useState(false);
     const [allUsers, setAllUsers] = useState([]);
     const [userOnline, setUserOnline] = useState(false);
+    const [groupChats, setGroupChats] = useState([]);
+    const [openGroupModal, setOpenGroupModal] = useState(false);
     const { userId } = useContext(UserContext);
     const { setChatHub } = useContext(ChatHubContext);
 
@@ -79,11 +81,34 @@ export const ChatProvider = (props) => {
         }).then(() => GetMessages(chatId))
     }
 
+    const GetGroups = () => {
+        fetch('http://localhost:5000/api/chat', {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        }).then(res => res.json())
+        .then(res => setGroupChats(res))
+    }
+
+    const AddUserChat = (userChat) => {
+        fetch('http://localhost:5000/api/userchat', {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(userChat)
+        }).then(() => GetUserChat())
+    }
+
 
     return (
        <ChatContext.Provider value={{ GetUserChat, chatList, openModal, setOpenModal, GetAllUsers,
        allUsers, userOnline, setUserOnline, GetMessages, AddChat, openChannelModal, setOpenChannelModal,
-       DeleteMessage, UpdateMessage}}>
+       DeleteMessage, UpdateMessage, groupChats, GetGroups, openGroupModal, setOpenGroupModal,
+       AddUserChat}}>
            {props.children}
        </ChatContext.Provider>
     )

@@ -58,5 +58,11 @@ namespace Speak_app.Controllers
             _chatRepository.removeChat(chatId, user);
             return Ok();
         }
+        [HttpGet]
+        public IActionResult GetAllGroupChats()
+        {
+            var chats = _chatRepository.GetGroupChats();
+            return Ok(chats);
+        }
     }
 }

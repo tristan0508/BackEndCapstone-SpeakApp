@@ -28,7 +28,14 @@ const useStyles = makeStyles(() => ({
 
 const ChatSideBar = () => {
     const classes = useStyles();
-    const { chatList, openModal, setOpenModal, GetMessages, openChannelModal, setOpenChannelModal } = useContext(ChatContext);
+    const { chatList,
+            openModal,
+            setOpenModal,
+            GetMessages,
+            openChannelModal,
+            setOpenChannelModal,
+            openGroupModal,
+            setOpenGroupModal } = useContext(ChatContext);
     const { setCurrentChatParam } = useContext(ChatHubContext);
     const { displayName } = useContext(UserContext);
     const history = useHistory();
@@ -39,6 +46,14 @@ const ChatSideBar = () => {
         setOpenChannelModal(true)
       } else {
         setOpenChannelModal(false)
+      }
+    }
+
+    const handleGroupModal = () => {
+      if(openGroupModal === false){
+        setOpenGroupModal(true)
+      } else {
+        setOpenGroupModal(false)
       }
     }
 
@@ -63,7 +78,7 @@ const ChatSideBar = () => {
         <ThemeProvider theme={headerTheme}>
           <List component="nav" aria-label="main mailbox folders">
             <Container>
-                <h4 style={{ cursor: "pointer"}}>Channels <SearchIcon /></h4>
+                <h4 onClick={handleGroupModal} style={{ cursor: "pointer"}}>Channels <SearchIcon /></h4>
                 <Button variant="outlined" color="secondary" onClick={() => {
                   handleChannelModal()
                 }}>

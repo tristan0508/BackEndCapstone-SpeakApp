@@ -7,7 +7,7 @@ import { UserContext, ChatContext, ChatHubContext } from '../../providers/Contex
 
 
 export const UserList = ({filteredUsers}) => {
-    const { GetAllUsers, allUsers, userOnline, setOpenModal, GetUserChat } = useContext(ChatContext)
+    const { GetAllUsers, userOnline, setOpenModal, GetUserChat } = useContext(ChatContext)
     const { displayName, userImage } = useContext(UserContext);
     const { AddChat } = useContext(ChatHubContext)
 

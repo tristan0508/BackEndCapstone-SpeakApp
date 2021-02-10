@@ -45,6 +45,12 @@ namespace SpeakApp.Repository
             return chats;
         }
 
+        public List<Chat> GetGroupChats()
+        {
+           var chats = _context.Chat.Where(c => c.Type == "Channel").ToList();
+           return chats;
+        }
+
         public Chat GetChatById(int id)
         {
             var chat = _context.Chat.FirstOrDefault(chat => chat.Id == id);

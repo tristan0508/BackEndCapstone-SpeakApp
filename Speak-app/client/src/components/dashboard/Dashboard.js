@@ -7,11 +7,12 @@ import ChatSideBar from '../chatsidebar/ChatSideBar';
 import { ChatDirectMessage } from '../chatsidebar/ChatDirectMessage';
 import { ChatContext, ChatHubContext } from '../../providers/ContextProvider';
 import { ChannelMessage } from '../chatsidebar/ChannelMessage';
+import { GroupList } from '../chatsidebar/GroupList';
 
 const Dashboard = () => {
     const [openMenu, setOpenMenu] = useState(false)
     const { HubConnection } = useContext(ChatHubContext);
-    const { GetUserChat } = useContext(ChatContext)
+    const { GetUserChat, GetGroups } = useContext(ChatContext)
 
     const scrollToEnd = () => {
         let chatElement = document.getElementById('chat');
@@ -25,6 +26,7 @@ const Dashboard = () => {
         scrollToEnd()
         HubConnection()
         GetUserChat()
+        GetGroups()
     }, [])
 
  
@@ -52,6 +54,7 @@ const Dashboard = () => {
                     <Grid id="chat" className="messages" container item xs={8}>
                         <ChannelMessage />
                         <ChatDirectMessage />
+                        <GroupList />
                         <MessageLayout />
                     </Grid>
                 </Grid>
