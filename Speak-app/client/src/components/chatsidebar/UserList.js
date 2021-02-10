@@ -6,7 +6,7 @@ import { UserContext, ChatContext, ChatHubContext } from '../../providers/Contex
 
 
 
-export const UserList = () => {
+export const UserList = ({filteredUsers}) => {
     const { GetAllUsers, allUsers, userOnline, setOpenModal, GetUserChat } = useContext(ChatContext)
     const { displayName, userImage } = useContext(UserContext);
     const { AddChat } = useContext(ChatHubContext)
@@ -33,7 +33,7 @@ export const UserList = () => {
     return (
 
         <ListItem className="userListContainer" style={{ marginTop: '5px',borderRadius: '5px'}}>
-           { allUsers.map(u => {
+           { filteredUsers.map(u => {
                 return <div key={u.id} className="userList">
                         <AvatarStatus src={u.image} online={userOnline} />
                             <Container style={{ marginTop: '7px', paddingLeft: '10px'}} >

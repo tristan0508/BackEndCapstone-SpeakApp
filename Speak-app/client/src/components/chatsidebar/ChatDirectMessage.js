@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Modal from '@material-ui/core/Modal';
 import { ChatContext } from '../../providers/ContextProvider';
 import { makeStyles } from '@material-ui/core/styles';
@@ -39,7 +39,20 @@ const useStyles = makeStyles((theme) => ({
 
 export const ChatDirectMessage = () => {
     const classes = useStyles();
-    const { openModal, setOpenModal } = useContext(ChatContext)
+    const { openModal, setOpenModal, allUsers } = useContext(ChatContext)
+    const [searchTerms, setSearchTerms] = useState("")
+    const [filteredUsers, setFilteredUsers] = useState([]);
+
+    useEffect(() => {
+        console.log(allUsers)
+        if (searchTerms !== "") {
+            const subset = allUsers.filter(user => user.displayName.toLowerCase().includes(searchTerms.toLowerCase().trim()))
+            console.log(subset)
+            setFilteredUsers(subset)
+        } else {
+            setFilteredUsers(allUsers)
+        }
+    }, [searchTerms, allUsers])
 
   
 
@@ -60,11 +73,15 @@ export const ChatDirectMessage = () => {
                     inputProps={{ 'aria-label': 'search' }}
                     style={{ border: '1px solid white', width: '100%', height: '40px',
                              borderRadius: '5px', padding: '5px' }}
+                    onKeyUp={
+                        (keyEvent) => setSearchTerms(keyEvent.currentTarget.value)
+                    }
+                    onChange={(keyEvent) => keyEvent.currentTarget.value === ''? setSearchTerms('') : null}
                     />
                     
                     </Grid>
                     <Grid item xs={12}>
-                        <UserList />
+                        <UserList filteredUsers={filteredUsers}/>
                     </Grid>
 
                 </Grid>

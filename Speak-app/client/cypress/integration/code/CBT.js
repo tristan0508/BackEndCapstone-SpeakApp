@@ -14,9 +14,5 @@ context("Workflow", () => {
         cy.get('#signIn').click().should('exist')
         
 
-        cy.on('window:alert', (str) => {
-            expect(str).to.equal(`Invalid email or password`)
-          })
-
     })
 })

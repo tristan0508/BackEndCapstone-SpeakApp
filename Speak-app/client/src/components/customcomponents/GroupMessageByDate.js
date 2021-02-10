@@ -7,6 +7,8 @@ const groupMessagesByDate = (messageList) => {
             return false
         }
         let date = message.dateCreated;
+        console.log(messages)
+        console.log(message)
         date = new Date(date).toLocaleString().split(',')[0]
         messages[date] = messages[date] ? [...messages[date], message] : [message];
         return messages
