@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import Modal from '@material-ui/core/Modal';
-import { ChatContext } from '../../providers/ContextProvider';
+import { ChatContext, ChatHubContext } from '../../providers/ContextProvider';
 import { makeStyles } from '@material-ui/core/styles';
 import PeopleAltIcon from '@material-ui/icons/PeopleAlt';
 import { Container, Grid } from '@material-ui/core';
@@ -43,11 +43,11 @@ export const GroupList = () => {
     const classes = useStyles();
     const userId = localStorage.getItem("userId");
     const { groupChats, openGroupModal, setOpenGroupModal, AddUserChat } = useContext(ChatContext)
+    const { setSnackOpen } = useContext(ChatHubContext);
     const [searchTerms, setSearchTerms] = useState("")
     const [filteredGroup, setFilteredGroup] = useState([]);
 
     useEffect(() => {
-        console.log(groupChats)
         if (searchTerms !== "") {
             const subset = groupChats.filter(group => group.name.toLowerCase().includes(searchTerms.toLowerCase().trim()))
             console.log(subset)
@@ -62,7 +62,12 @@ export const GroupList = () => {
         chatId: id,
         userId: userId
       }
-      AddUserChat(UserChat)
+      console.log(UserChat)
+      try {
+        AddUserChat(UserChat)
+      } catch (er) {
+        setSnackOpen(true)
+      }
       setOpenGroupModal(false)
   }
 
@@ -93,9 +98,9 @@ export const GroupList = () => {
                     <Grid item xs={12}>
                         {filteredGroup.map(g => {
                         return  <ListItem button key={g.id} onClick={() =>  handleChatRoute(g.id)}>
-                            <PeopleAltIcon />
-                            <ListItemText className="chatListText" key={g.id} primary={g.name} />
-                        </ListItem>
+                                    <PeopleAltIcon />
+                                    <ListItemText className="chatListText" key={g.id} primary={g.name} />
+                                </ListItem>
                 
                         })}
                     </Grid>

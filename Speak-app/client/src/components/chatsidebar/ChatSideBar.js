@@ -86,16 +86,15 @@ const ChatSideBar = () => {
                 </Button>
             </Container>
             <Container>
-                {  chatList.map(c => {
+                { chatList !== null ? chatList.map(c => {
                         if(c.type === 'Channel'){
                         return  <ListItem button key={c.id} onClick={() => handleChatRoute(c.id)}>
                                     <PeopleAltIcon />
                                     <ListItemText className="chatListText" key={c.id} primary={c.name} />
                                 </ListItem>
                         }
-                        return null;
                     })
-                }
+                : null}
             </Container>
           </List>
           <Divider />
@@ -110,7 +109,7 @@ const ChatSideBar = () => {
                 </Button>
             </Container>
             <Container>
-                {  chatList.map(c => {
+                { chatList !== null ? chatList.map(c => {
                         if(c.type === 'Direct Message'){
 
                         return  <ListItem button key={c.id} onClick={() => handleChatRoute(c.id)}>
@@ -125,7 +124,7 @@ const ChatSideBar = () => {
                         }
                         return null;
                     })
-                }
+                : null}
                 <SnackBar />
             </Container>
           </List>

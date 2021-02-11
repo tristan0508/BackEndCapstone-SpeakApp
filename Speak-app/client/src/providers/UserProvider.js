@@ -48,8 +48,12 @@ export function UserProvider(props) {
     const register = (user, password) => {
         return firebase.auth().createUserWithEmailAndPassword(user.email, password)
             .then((createResponse) => saveUser({ ...user, firebaseUserId: createResponse.user.uid }))
-            .then((savedUser) => {
-                localStorage.setItem("user", JSON.stringify(savedUser));
+            .then((user) => {
+            localStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem("userImage", user.image !== null ? user.image : "");
+            localStorage.setItem("userId", user.id);
+            localStorage.setItem("displayName", `${user.firstName} ${user.lastName}`);
+            localStorage.setItem("firebaseId", user.firebaseUserId);
                 setIsLoggedIn(true);
             });
     };
