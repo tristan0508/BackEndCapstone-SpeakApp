@@ -36,8 +36,7 @@ const useStyles = makeStyles((theme) =>
 const MessageLayout = () => {
     const classes = useStyles();
     const userId = localStorage.getItem("userId");
-    const { chatHub, currentChatParam } = useContext(ChatHubContext);
-    const { DeleteMessage } = useContext(ChatContext);
+    const { chatHub, currentChatParam, DeleteUpdate } = useContext(ChatHubContext);
     const [groupedChat, setGroupedChat] = useState([]);
     const [todaysDate, setTodaysDate] = useState();
     const [yesterdaysDate, setYesterdaysDate] = useState([]);
@@ -64,7 +63,7 @@ const MessageLayout = () => {
     }, [chatHub, currentChatParam])
 
     const deleteMessage = (msgId, chatId) => {
-        DeleteMessage(msgId, chatId)
+        DeleteUpdate(msgId, chatId)
     }
 
     return (

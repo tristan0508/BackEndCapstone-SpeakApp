@@ -14,7 +14,7 @@ export const ChatProvider = (props) => {
     const [groupChats, setGroupChats] = useState([]);
     const [openGroupModal, setOpenGroupModal] = useState(false);
     const { userId } = useContext(UserContext);
-    const { setChatHub } = useContext(ChatHubContext);
+    const { GetMessages } = useContext(ChatHubContext);
 
     const GetUserChat = () => {
             fetch(`http://localhost:5000/api/chat/${userId}`, {
@@ -38,16 +38,6 @@ export const ChatProvider = (props) => {
         .then(res => setAllUsers(res))
     }
 
-    const GetMessages = (chatId) => {
-        fetch(`http://localhost:5000/api/message/${chatId}`, {
-            method: "GET",
-            headers: {
-                Authorization: `Bearer ${token}`,
-                "Content-Type": "application/json"
-            }
-        }).then(res => res.json())
-        .then(res => setChatHub(res))
-    }
 
     const DeleteMessage = (msgId, chatId) => {
         fetch(`http://localhost:5000/api/message/${msgId}`, {
@@ -106,7 +96,7 @@ export const ChatProvider = (props) => {
 
     return (
        <ChatContext.Provider value={{ GetUserChat, chatList, openModal, setOpenModal, GetAllUsers,
-       allUsers, userOnline, setUserOnline, GetMessages, AddChat, openChannelModal, setOpenChannelModal,
+       allUsers, userOnline, setUserOnline, AddChat, openChannelModal, setOpenChannelModal,
        DeleteMessage, UpdateMessage, groupChats, GetGroups, openGroupModal, setOpenGroupModal,
        AddUserChat}}>
            {props.children}

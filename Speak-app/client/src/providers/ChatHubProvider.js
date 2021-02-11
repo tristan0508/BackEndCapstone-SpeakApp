@@ -1,6 +1,6 @@
 import React, { useState, useRef, useContext } from "react";
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
-import { ChatHubContext, UserContext } from './ContextProvider';
+import { ChatContext, ChatHubContext, UserContext } from './ContextProvider';
 
 
 
@@ -15,6 +15,17 @@ export const ChatHubProvider = (props) => {
     const currentChat = useRef(null);
 
     currentChat.current = chatHub;
+
+    const GetMessages = (chatId) => {
+        fetch(`http://localhost:5000/api/message/${chatId}`, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+                "Content-Type": "application/json"
+            }
+        }).then(res => res.json())
+        .then(res => setChatHub(res))
+    }
 
     const HubConnection = () => {
         const connection = new HubConnectionBuilder()
@@ -36,9 +47,10 @@ export const ChatHubProvider = (props) => {
                         console.log(updateChat)
                     })
 
-                    connection.on('Send', (e) => {
-                        console.log(e)
+                    connection.on('Update', (e) => {
+                        GetMessages(e)
                     })
+
                    
                 })
                 .catch(e => console.log('Connection failed: ', e));
@@ -70,10 +82,27 @@ export const ChatHubProvider = (props) => {
         }
     }
 
+    const Update = async (msgId, body, chatId) => {
+        try{
+            await hubConnection.invoke("UpdateMessage", msgId, body, chatId)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const DeleteUpdate = async (msgId, chatId) => {
+        try{
+            await hubConnection.invoke("DeleteMessage", msgId, chatId)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
 
     return (
        <ChatHubContext.Provider value={{ HubConnection, hubConnection, addMessage, AddChat, chatHub,
-      setCurrentChatParam, setChatHub, currentChatParam, chatType, setChatType, openSnack, setOpenSnack}}>
+      setCurrentChatParam, setChatHub, currentChatParam, chatType, setChatType, openSnack, setOpenSnack,
+      Update, GetMessages, DeleteUpdate}}>
            {props.children}
        </ChatHubContext.Provider>
     )

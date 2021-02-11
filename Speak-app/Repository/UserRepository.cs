@@ -34,5 +34,11 @@ namespace SpeakApp.Repository
             return users;
         }
 
+        public void DeleteUser(int userId)
+        {
+            var user = _context.User.FirstOrDefault(u => u.Id == userId);
+            _context.Remove(user);
+            _context.SaveChanges();
+        }
     }
 }

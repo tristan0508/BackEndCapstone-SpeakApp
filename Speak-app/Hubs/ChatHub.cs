@@ -55,6 +55,20 @@ namespace Speak_app.Hubs
             await Clients.Group(message.ChatId.ToString()).SendAsync("ReceiveMessage", msg);
         }
 
+        public async Task UpdateMessage(int msgId, string body, int chatId)
+        {
+            _messageRepository.UpdateMessage(msgId, body);
+            string id = chatId.ToString();
+            await Clients.Group(id).SendAsync("Update", chatId);
+        }
+
+        public async Task DeleteMessage(int msgId, int chatId)
+        {
+            _messageRepository.RemoveMessage(msgId);
+            string id = chatId.ToString();
+            await Clients.Group(id).SendAsync("Update", chatId);
+        }
+
         public override Task OnConnectedAsync()
         {
             int userId = GetUser().Id;

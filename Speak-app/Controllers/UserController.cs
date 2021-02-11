@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 
 namespace SpeakApp.Controllers
 {
-    //[Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase
@@ -53,6 +52,13 @@ namespace SpeakApp.Controllers
             _userRepository.Add(user);
             return CreatedAtAction(
                 nameof(GetByFirebaseUserId), new { firebaseUserId = user.FirebaseUserId }, user);
+        }
+
+        [HttpDelete("{userId}")]
+        public IActionResult DeleteUser(int userId)
+        {
+            _userRepository.DeleteUser(userId);
+            return Ok();
         }
     }
 }

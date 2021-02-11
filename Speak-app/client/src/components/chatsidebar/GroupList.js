@@ -7,6 +7,7 @@ import { Container, Grid } from '@material-ui/core';
 import InputBase from '@material-ui/core/InputBase';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItem from '@material-ui/core/ListItem';
+import { useHistory } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -42,8 +43,9 @@ const useStyles = makeStyles((theme) => ({
 export const GroupList = () => {
     const classes = useStyles();
     const userId = localStorage.getItem("userId");
+    const history = useHistory();
+    const { setCurrentChatParam, GetMessages } = useContext(ChatHubContext);
     const { groupChats, openGroupModal, setOpenGroupModal, AddUserChat } = useContext(ChatContext)
-    const { setSnackOpen } = useContext(ChatHubContext);
     const [searchTerms, setSearchTerms] = useState("")
     const [filteredGroup, setFilteredGroup] = useState([]);
 
@@ -62,13 +64,12 @@ export const GroupList = () => {
         chatId: id,
         userId: userId
       }
-      console.log(UserChat)
-      try {
-        AddUserChat(UserChat)
-      } catch (er) {
-        setSnackOpen(true)
-      }
-      setOpenGroupModal(false)
+
+    AddUserChat(UserChat)
+    setCurrentChatParam(id)
+    GetMessages(id)
+    history.push(`${id}`)
+    setOpenGroupModal(false)
   }
 
     return (

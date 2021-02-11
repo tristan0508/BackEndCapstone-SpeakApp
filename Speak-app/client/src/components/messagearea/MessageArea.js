@@ -26,7 +26,7 @@ const MessageArea = () => {
     const classes = useStyles();
     const [input, setInput] = useState("")
     const { addMessage, currentChatParam } = useContext(ChatHubContext);
-    const { GetMessages } = useContext(ChatContext)
+    const { GetMessages } = useContext(ChatHubContext)
   
 
     useEffect(() => {

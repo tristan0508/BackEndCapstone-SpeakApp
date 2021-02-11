@@ -31,12 +31,11 @@ const ChatSideBar = () => {
     const { chatList,
             openModal,
             setOpenModal,
-            GetMessages,
             openChannelModal,
             setOpenChannelModal,
             openGroupModal,
             setOpenGroupModal } = useContext(ChatContext);
-    const { setCurrentChatParam } = useContext(ChatHubContext);
+    const { setCurrentChatParam, GetMessages } = useContext(ChatHubContext);
     const { displayName } = useContext(UserContext);
     const history = useHistory();
 

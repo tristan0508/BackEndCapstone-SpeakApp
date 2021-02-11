@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
 
 export const ChatDirectMessage = () => {
     const classes = useStyles();
-    const { openModal, setOpenModal, allUsers, openGroupModal, setOpenGroupModal } = useContext(ChatContext)
+    const { openModal, setOpenModal, allUsers } = useContext(ChatContext)
     const [searchTerms, setSearchTerms] = useState("")
     const [filteredUsers, setFilteredUsers] = useState([]);
 

@@ -7,6 +7,7 @@ namespace SpeakApp.Repository
     {
         void Add(User user);
         List<User> AllUsers();
+        void DeleteUser(int userId);
         User GetByFirebaseUserId(string firebaseUserId);
     }
 }

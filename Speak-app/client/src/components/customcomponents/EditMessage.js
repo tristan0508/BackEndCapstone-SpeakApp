@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';
 import { createStyles, makeStyles } from '@material-ui/core/styles';
-import { ChatContext } from '../../providers/ContextProvider';
+import { ChatContext, ChatHubContext } from '../../providers/ContextProvider';
 
 
 
@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) =>
 export const EditMessage = ({msg, msgId, chatId, setEditMsg}) => {
     const classes = useStyles();
     const [message, setMessage] = useState(msg);
-    const { UpdateMessage } = useContext(ChatContext);
+    const { Update } = useContext(ChatHubContext);
 
     
     
@@ -63,7 +63,7 @@ export const EditMessage = ({msg, msgId, chatId, setEditMsg}) => {
                         color="primary"
                         className={classes.submit}
                         onClick={async() => {
-                           await UpdateMessage(msgId, message, chatId)
+                           await Update(msgId, message, chatId)
                             setEditMsg("")
                         }}
                         >
